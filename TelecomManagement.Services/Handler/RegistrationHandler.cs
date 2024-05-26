@@ -49,7 +49,11 @@ namespace TelecomManagement.Services.Handler
 
             return true;
         }
-
+        public bool ValidatePhoneNumber(string phoneNumber)
+        {
+            // Verifică dacă numărul de telefon are exact 10 caractere și conține doar cifre
+            return phoneNumber.Length == 10 && Regex.IsMatch(phoneNumber, @"^\d{10}$");
+        }
 
         public void HandleRegistration()
         {
@@ -73,8 +77,12 @@ namespace TelecomManagement.Services.Handler
             Console.WriteLine("Introduceti emailul:");
             string email = Console.ReadLine();
 
-            Console.WriteLine("Introduceti telefonul:");
-            string telefon = Console.ReadLine();
+            string telefon;
+            do
+            {
+                Console.WriteLine("Introduceti telefonul (10 cifre):");
+                telefon = Console.ReadLine();
+            } while (!ValidatePhoneNumber(telefon));
 
             Console.WriteLine("Introduceti CNP:");
             string cnp = Console.ReadLine();
