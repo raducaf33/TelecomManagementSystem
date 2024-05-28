@@ -13,12 +13,18 @@ namespace TelecomManagement.Data
     {
         private string _connectionString;
 
- 
+        private readonly TelecomContext _context;
 
         public ContractRepository(TelecomContext context) : base(context)
       {
+            _context = context;
         }
-    
+
+        public List<Contract> GetContractsByClientId(int clientId)
+        {
+            return _context.Contracte.Where(c => c.ClientId == clientId).ToList();
+        }
+
         public void AdaugaContract(Contract contract)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -34,6 +40,8 @@ namespace TelecomManagement.Data
                 command.ExecuteNonQuery();
             }
         }
+
        
+
     }
 }

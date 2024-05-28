@@ -21,6 +21,9 @@ namespace TelecomManagement.Data
        public DbSet<Client> Clienti { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Bonus> Bonus { get; set; }
+        public DbSet<ContractBonus> ContractBonus { get; set; }
+
         // Alte DbSet-uri pentru entități
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -29,6 +32,8 @@ namespace TelecomManagement.Data
             modelBuilder.Entity<Contract>().ToTable("Contracts");
            modelBuilder.Entity<Client>().ToTable("Clienti");
             modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Bonus>().ToTable("Bonus");
+            modelBuilder.Entity<ContractBonus>().ToTable("ContractBonus");
 
 
             // Configurarea relației între Client și Abonament
@@ -49,7 +54,21 @@ namespace TelecomManagement.Data
                 .HasRequired(c => c.User)
                 .WithMany()
                 .HasForeignKey(c => c.UserId)
-                .WillCascadeOnDelete(false); 
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ContractBonus>()
+                .HasRequired(c => c.Contract)
+                .WithMany()
+                .HasForeignKey(c => c.ContractId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ContractBonus>()
+                .HasRequired(c => c.Bonus)
+                .WithMany()
+                .HasForeignKey(c => c.BonusId)
+                .WillCascadeOnDelete(false);
+
+
 
 
             base.OnModelCreating(modelBuilder);

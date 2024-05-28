@@ -3,21 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TelecomManagement.Data;
+using TelecomManagement.Domain;
 
 namespace TelecomManagement.Services.Handler
 {
     public class PostLoginHandler
     {
-        private readonly ContractService _contractService; // Assumes you have a ContractService class
+        private readonly ContractService _contractService;
+        // Assumes you have a ContractService class
+        private int _loggedInUserId;
 
         public PostLoginHandler(ContractService contractService)
         {
             _contractService = contractService;
         }
 
-        private int _loggedInUserId;
+       
 
-        
+        public List<Contract> GetActiveContracts(int clientId)
+        {
+            var contracts = _contractService.GetContractsByClientId(clientId);
+            return contracts.FindAll(c => c.DataIncheiere > DateTime.Now);
+        }
+
+        public List<Bonus> GetAllBonuses()
+        {
+            return _contractService.GetAllBonuses();
+        }
+
+        public void AddBonusToContract(int contractId, int bonusId)
+        {
+            _contractService.AddBonusToContract(contractId, bonusId);
+        }
 
         public void ShowPostLoginMenu(int userId)
         {
@@ -26,7 +44,8 @@ namespace TelecomManagement.Services.Handler
             {
                 Console.WriteLine("Selectati o optiune:");
                 Console.WriteLine("1. Afisati abonamentele");
-                Console.WriteLine("2. Iesire");
+                Console.WriteLine("2. Adauga bonus");
+                Console.WriteLine("3. Iesire");
 
                 string choice = Console.ReadLine();
 
@@ -36,6 +55,9 @@ namespace TelecomManagement.Services.Handler
                         ShowAbonamente();
                         break;
                     case "2":
+                        AddBonus();
+                        break;
+                    case "3":
                         Console.WriteLine("Deconectare reusita.");
                         return;
                     default:
@@ -81,6 +103,45 @@ namespace TelecomManagement.Services.Handler
             {
                 _contractService.SignContract(_loggedInUserId, abonamentDetails.Id);
             }
+        }
+
+        private void AddBonus()
+        {
+            int? clientId = _contractService.GetClientByUserId(_loggedInUserId);
+            if (clientId == null)
+            {
+                Console.WriteLine("Clientul nu a fost găsit.");
+                return;
+            }
+
+            var activeContracts = _contractService.GetContractsByClientId(clientId.Value).FindAll(c => c.DataExpirare > DateTime.Now);
+
+            if (!activeContracts.Any())
+            {
+                Console.WriteLine("Nu există contracte active pentru acest utilizator.");
+                return;
+            }
+
+            Console.WriteLine("Selectează un contract:");
+            for (int i = 0; i < activeContracts.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. Contract ID: {activeContracts[i].Id}, Data Expirare: {activeContracts[i].DataExpirare}");
+            }
+
+            var contractChoice = int.Parse(Console.ReadLine()) - 1;
+            var selectedContract = activeContracts[contractChoice];
+
+            Console.WriteLine("Selectează un bonus:");
+            var bonuses = _contractService.GetAllBonuses();
+            for (int i = 0; i < bonuses.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {bonuses[i].Nume} - {bonuses[i].MinuteBonus} minute, {bonuses[i].SMSuriBonus} SMSuri, {bonuses[i].TraficDateBonus} MB");
+            }
+
+            var bonusChoice = int.Parse(Console.ReadLine()) - 1;
+            var selectedBonus = bonuses[bonusChoice];
+
+            _contractService.AddBonusToContract(selectedContract.Id, selectedBonus.Id);
         }
     }
 }

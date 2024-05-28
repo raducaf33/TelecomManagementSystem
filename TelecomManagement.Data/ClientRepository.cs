@@ -14,9 +14,10 @@ namespace TelecomManagement.Data
     {
 
        private string _connectionString;
-
+        private readonly TelecomContext _context;
         public ClientRepository(TelecomContext context) : base(context)
         {
+            _context = context;
         }
 
 
@@ -47,9 +48,18 @@ namespace TelecomManagement.Data
                 
             }
             }
-       
-            // Implementează metodele pentru actualizare, ștergere, citire etc.
+
+       public Client GetClientByUserId(int userId)
+        {
+            // Căutăm primul client cu userul dat
+            var client = _context.Clienti.FirstOrDefault(c => c.UserId == userId);
+            return client;
         }
+      
+       
+
+        // Implementează metodele pentru actualizare, ștergere, citire etc.
+    }
     }
     
 

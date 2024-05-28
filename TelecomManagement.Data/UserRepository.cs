@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TelecomManagement.Domain;
 using System.Data.SqlClient;
 using System.Data.Entity;
+using System.Runtime.Remoting.Contexts;
 
 namespace TelecomManagement.Data
 {
@@ -13,10 +14,11 @@ namespace TelecomManagement.Data
     {
 
         private string _connectionString;
+        private readonly TelecomContext _context;
 
         public UserRepository(TelecomContext context) : base(context)
         {
-
+            _context = context;
         }
 
         public void AdaugaUser(User user)
@@ -35,6 +37,6 @@ namespace TelecomManagement.Data
             }
         }
 
-      
+        
     }
 }

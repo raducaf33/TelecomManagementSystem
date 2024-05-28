@@ -18,6 +18,9 @@ namespace TelecomManagement.Data
             _dbSet = _context.Set<T>();
         }
 
+       
+
+
         public List<T> GetAll()
         {
             return GetRecords().ToList();
@@ -43,6 +46,11 @@ namespace TelecomManagement.Data
         {
             _dbSet.Remove(entity);
             _context.SaveChanges();
+        }
+
+        public T GetById(int id)
+        {
+            return _dbSet.Find(id);
         }
     }
 }
