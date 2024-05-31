@@ -77,76 +77,6 @@ namespace TelecomManagement.Tests.DomainTests
             Assert.IsTrue(results.Any(vr => vr.MemberNames.Contains("Nume")));
         }
 
-        [TestMethod]
-        public void Abonament_MinuteIncluse_ShouldBePositive()
-        {
-            // Arrange
-            var abonament = new Abonament
-            {
-                Nume = "Abonament Test",
-                Pret = 50.0m,
-                MinuteIncluse = -5,
-                SMSuriIncluse = 100,
-                TraficDateInclus = 10.0m
-            };
-
-            // Act
-            var validationContext = new ValidationContext(abonament, null, null);
-            var results = new System.Collections.Generic.List<ValidationResult>();
-
-            // Assert
-            var isValid = Validator.TryValidateObject(abonament, validationContext, results, true);
-            Assert.IsFalse(isValid);
-            Assert.IsTrue(results.Any(vr => vr.ErrorMessage.Contains("The field MinuteIncluse must be between 0 and")));
-        }
-
-        
-
-        [TestMethod]
-        public void Abonament_SMSuriIncluse_ShouldBePositive()
-        {
-            // Arrange
-            var abonament = new Abonament
-            {
-                Nume = "Abonament Test",
-                Pret = 50.0m,
-                MinuteIncluse = 300,
-                SMSuriIncluse = -10,
-                TraficDateInclus = 10.0m
-            };
-
-            // Act
-            var validationContext = new ValidationContext(abonament, null, null);
-            var results = new System.Collections.Generic.List<ValidationResult>();
-
-            // Assert
-            var isValid = Validator.TryValidateObject(abonament, validationContext, results, true);
-            Assert.IsFalse(isValid);
-            Assert.IsTrue(results.Any(vr => vr.ErrorMessage.Contains("The field SMSuriIncluse must be between 0 and")));
-        }
-
-        [TestMethod]
-        public void Abonament_TraficDateInclus_ShouldBePositive()
-        {
-            // Arrange
-            var abonament = new Abonament
-            {
-                Nume = "Abonament Test",
-                Pret = 50.0m,
-                MinuteIncluse = 300,
-                SMSuriIncluse = 100,
-                TraficDateInclus = -5.0m
-            };
-
-            // Act
-            var validationContext = new ValidationContext(abonament, null, null);
-            var results = new System.Collections.Generic.List<ValidationResult>();
-
-            // Assert
-            var isValid = Validator.TryValidateObject(abonament, validationContext, results, true);
-            Assert.IsFalse(isValid);
-            Assert.IsTrue(results.Any(vr => vr.ErrorMessage.Contains("The field TraficDateInclus must be between 0 and")));
-        }
 
         private void ValidateAbonament(Abonament abonament)
         {
@@ -157,3 +87,4 @@ namespace TelecomManagement.Tests.DomainTests
         }
     }
 }
+

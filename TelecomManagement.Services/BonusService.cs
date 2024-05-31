@@ -4,24 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Data;
+using TelecomManagement.Data.Interfaces;
 using TelecomManagement.Domain;
+using TelecomManagement.Services.Base;
 
 namespace TelecomManagement.Services
 {
-    public class BonusService
+    public class BonusService : ServiceBase<Bonus>
     {
-        
-            private readonly BonusRepository _bonusRepository;
 
-            public BonusService(BonusRepository bonusRepository)
-            {
-                _bonusRepository = bonusRepository;
-            }
 
-            public List<Bonus> GetAllBonuses()
-            {
-                return _bonusRepository.GetAll();
-            }
-        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StockService"/> class.
+        /// </summary>
+        /// <param name="stockRepository">The stock repository.</param>
+        public BonusService(IRepositoryBase<Bonus>  bonusRepository) :
+            base(bonusRepository)
+        {
+        }
+
+
+
     }
 }

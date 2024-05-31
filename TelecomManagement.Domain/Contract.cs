@@ -21,6 +21,11 @@ namespace TelecomManagement.Domain
         public int AbonamentId { get; set; }
         public int ClientId { get; set; }
 
+
+      
+
+        public bool EsteExpirat => DataExpirare < DateTime.Today;
+
         // Foreign key for Abonament
 
         [ForeignKey("ClientId")]

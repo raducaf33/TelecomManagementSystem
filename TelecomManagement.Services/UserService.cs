@@ -5,30 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Data;
 using TelecomManagement.Domain;
+using TelecomManagement.Services.Base;
 
 namespace TelecomManagement.Services
 {
-    public  class UserService
+    public class UserService : ServiceBase<User>
     {
-        private readonly UserRepository _userRepository;
 
-        public UserService(UserRepository userRepository)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StockService"/> class.
+        /// </summary>
+        /// <param name="stockRepository">The stock repository.</param>
+        public UserService(UserRepository userRepository) :
+            base(userRepository)
         {
-            _userRepository = userRepository;
         }
 
-        public User Login(string username, string password)
-        {
-            // Găsirea utilizatorului în baza de date
-            var user = _userRepository.GetRecords().FirstOrDefault(u => u.Username == username && u.Password == password);
 
-            if (user != null)
-            {
-                user.LastLoggedIn = DateTime.Now;
-                _userRepository.Update(user);
-            }
-
-            return user;
-        }
     }
 }

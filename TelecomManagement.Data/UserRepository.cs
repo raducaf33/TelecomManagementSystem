@@ -11,30 +11,11 @@ using System.Runtime.Remoting.Contexts;
 namespace TelecomManagement.Data
 {
     public class UserRepository : RepositoryBase<User>
-    {
-
-        private string _connectionString;
-        private readonly TelecomContext _context;
+    {     
 
         public UserRepository(TelecomContext context) : base(context)
         {
-            _context = context;
-        }
-
-        public void AdaugaUser(User user)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "INSERT INTO User (Username, Password, LastLoggedIn) VALUES (@Username, @Password, @LastLoggedIn)";
-                SqlCommand command = new SqlCommand(query, connection);
-                
-                command.Parameters.AddWithValue("@Username", user.Username);
-                command.Parameters.AddWithValue("@Password", user.Password);
-                command.Parameters.AddWithValue("@LastLoggedIn", user.LastLoggedIn);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
+            
         }
 
         

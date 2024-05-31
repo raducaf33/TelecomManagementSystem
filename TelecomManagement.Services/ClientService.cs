@@ -5,21 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Domain;
 using TelecomManagement.Data;
+using TelecomManagement.Data.Interfaces;
+using TelecomManagement.Services.Base;
 
 namespace TelecomManagement.Services
 {
-    public class ClientService
+    public class ClientService : ServiceBase<Client>
     {
-        private readonly ClientRepository _clientRepository;
-        private readonly TelecomContext _telecomContext;
 
-        public ClientService(ClientRepository clientRepository)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StockService"/> class.
+        /// </summary>
+        /// <param name="stockRepository">The stock repository.</param>
+        public ClientService(IRepositoryBase<Client> clientRepository) :
+            base(clientRepository)
         {
-            _clientRepository = clientRepository;
         }
-
-
-
 
 
     }

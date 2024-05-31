@@ -16,13 +16,20 @@ namespace TelecomManagement.Data
         public TelecomContext() : base("name=TelecomContext")
         {
         }
-       public DbSet<Abonament> Abonaments { get; set; }
-       public DbSet<Contract> Contracte { get; set; }
-       public DbSet<Client> Clienti { get; set; }
-        public DbSet<User> Users { get; set; }
+       public virtual DbSet<Abonament> Abonaments { get; set; }
+       public virtual DbSet<Contract> Contracte { get; set; }
+       public virtual DbSet<Client> Clienti { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
-        public DbSet<Bonus> Bonus { get; set; }
-        public DbSet<ContractBonus> ContractBonus { get; set; }
+        public virtual DbSet<Bonus> Bonus { get; set; }
+        public virtual DbSet<ContractBonus> ContractBonus { get; set; }
+
+        public virtual DbSet<Plata> Plata { get; set; }
+
+
+        public virtual DbSet<Factura> Factura { get; set; }
+
+
 
         // Alte DbSet-uri pentru entități
 
@@ -34,11 +41,13 @@ namespace TelecomManagement.Data
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Bonus>().ToTable("Bonus");
             modelBuilder.Entity<ContractBonus>().ToTable("ContractBonus");
+            modelBuilder.Entity<Plata>().ToTable("Plata");
+            modelBuilder.Entity<Factura>().ToTable("Factura");
 
 
             // Configurarea relației între Client și Abonament
-           
-             modelBuilder.Entity<Contract>()
+
+            modelBuilder.Entity<Contract>()
                 .HasRequired(c => c.Abonament)
                 .WithMany()
                 .HasForeignKey(c => c.AbonamentId)

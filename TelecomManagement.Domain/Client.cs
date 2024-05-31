@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace TelecomManagement.Domain
 {
     public class Client
@@ -36,38 +37,55 @@ namespace TelecomManagement.Domain
           [NotMapped]
           public int Varsta => CalculeazaVarstaDinCNP(CNP);
 
-          private int CalculeazaVarstaDinCNP(string cnp)
-          {
-              if (cnp.Length != 13)
-                  throw new ArgumentException("CNP-ul trebuie să aibă 13 caractere.");
+        private int CalculeazaVarstaDinCNP(string cnp)
+        {
+            if (cnp.Length != 13)
+                throw new ArgumentException("CNP-ul trebuie să aibă 13 caractere.");
 
-              var dataNasterii = cnp.Substring(1, 6);
+            int sexSiSecol = int.Parse(cnp.Substring(0, 1));
+            int an = int.Parse(cnp.Substring(1, 2));
+            int luna = int.Parse(cnp.Substring(3, 2));
+            int zi = int.Parse(cnp.Substring(5, 2));
 
-              int an = int.Parse(dataNasterii.Substring(0, 2));
-              int luna = int.Parse(dataNasterii.Substring(2, 2));
-              int zi = int.Parse(dataNasterii.Substring(4, 2));
+            int sex = sexSiSecol % 2 == 1 ? 1 : 2; // 1 pentru masculin, 2 pentru feminin
 
-              if (cnp[0] == '1' || cnp[0] == '2')
-              {
-                  an += 1900;
-              }
-              else if (cnp[0] == '5' || cnp[0] == '6')
-              {
-                  an += 2000;
-              }
+            switch (sexSiSecol)
+            {
+                case 1:
+                case 2:
+                    an += 1900;
+                    break;
+                case 3:
+                case 4:
+                    an += 1800;
+                    break;
+                case 5:
+                case 6:
+                    an += 2000;
+                    break;
+                case 7:
+                case 8:
+                    throw new ArgumentException("CNP-ul este destinat străinilor și nu poate fi folosit pentru determinarea vârstei.");
+                default:
+                    throw new ArgumentException("CNP-ul este invalid.");
+            }
 
-              var dataNasteriiDateTime = new DateTime(an, luna, zi);
-              var varsta = DateTime.Today.Year - dataNasteriiDateTime.Year;
+            var dataNasteriiDateTime = new DateTime(an, luna, zi);
+            var varsta = DateTime.Today.Year - dataNasteriiDateTime.Year;
 
-              if (DateTime.Today < dataNasteriiDateTime.AddYears(varsta))
-              {
-                  varsta--;
-              }
+            if (DateTime.Today < dataNasteriiDateTime.AddYears(varsta))
+            {
+                varsta--;
+            }
 
-              return varsta;
-          }
-      }
+            return varsta;
+        }
 
-          
+
+
+
     }
+
+
+}
     
