@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file=BonusTests.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Bonus Tests class. </summary>
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

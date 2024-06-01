@@ -1,4 +1,9 @@
-﻿using global::TelecomManagement.Domain;
+﻿// <copyright file=ContractTests.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Contract Tests class. </summary>
+
+using global::TelecomManagement.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

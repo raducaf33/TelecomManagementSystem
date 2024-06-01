@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file="UserService.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the User Service class. </summary>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

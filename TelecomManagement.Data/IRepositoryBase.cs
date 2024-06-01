@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file="IRepositoryBase.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Base Interface Repository class. </summary>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;

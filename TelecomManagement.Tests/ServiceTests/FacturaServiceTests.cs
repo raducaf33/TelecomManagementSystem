@@ -1,4 +1,9 @@
-﻿using Moq;
+﻿// <copyright file=FacturaServiceTests.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Factura Service Tests class. </summary>
+
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;

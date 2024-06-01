@@ -1,4 +1,9 @@
-﻿using Moq;
+﻿// <copyright file=ClientServiceTests.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Client Service Tests class. </summary>
+
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,10 @@
-﻿using Moq;
+﻿// <copyright file=AbonamentServiceTests.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Abonament Service Tests class. </summary>
+
+
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;

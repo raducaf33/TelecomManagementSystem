@@ -1,4 +1,10 @@
-﻿using System;
+﻿// <copyright file="RepositoryBase.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Base Repository class. </summary>
+
+
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;

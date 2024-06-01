@@ -1,4 +1,8 @@
-﻿
+﻿// <copyright file=ContractceTests.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Contract Service Tests class. </summary>
+
 using Moq;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,9 @@
-﻿using Moq;
+﻿// <copyright file=UserServiceTests.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the User Service Tests class. </summary>
+
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;

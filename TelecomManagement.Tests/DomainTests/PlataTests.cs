@@ -1,4 +1,10 @@
-﻿using System;
+﻿// <copyright file=PlataTests.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Plata Tests class. </summary>
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file="AbonamentService.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Abonament Service class. </summary>
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;

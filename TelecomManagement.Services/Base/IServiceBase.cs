@@ -1,4 +1,9 @@
-﻿using Microsoft.Practices.EnterpriseLibrary.Validation;
+﻿// <copyright file="IServiceBase.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Base Service Interface class. </summary>
+
+using Microsoft.Practices.EnterpriseLibrary.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

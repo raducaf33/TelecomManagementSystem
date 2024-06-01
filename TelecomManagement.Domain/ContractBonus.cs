@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file="ContractBonus.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the ContractBonus class. </summary>
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;

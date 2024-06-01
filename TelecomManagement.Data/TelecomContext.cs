@@ -1,4 +1,10 @@
-﻿using System;
+﻿// <copyright file="TelecomContext.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Telecom Context class. </summary>
+
+
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;

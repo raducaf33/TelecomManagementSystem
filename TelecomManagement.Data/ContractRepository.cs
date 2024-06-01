@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file="ContractRepository.cs" company="Transilvania University Of Brasov">
+// Fintineru Raduca-Maria
+// </copyright>
+// <summary> Defines the Contract Repository class. </summary>
+
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
