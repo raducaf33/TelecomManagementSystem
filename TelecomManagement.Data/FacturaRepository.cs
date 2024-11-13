@@ -12,9 +12,14 @@ using TelecomManagement.Domain;
 
 namespace TelecomManagement.Data
 {
+    /// <summary>
+    /// FacturaRepository class.
+    /// </summary>
     public class FacturaRepository : RepositoryBase<Factura>
     {
-
+        /// <summary>
+        /// Initializes a new instance of the FacturaRepository class.
+        /// </summary>
 
 
         public FacturaRepository(TelecomContext context) : base(context)

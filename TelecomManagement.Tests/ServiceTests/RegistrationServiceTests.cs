@@ -16,17 +16,36 @@ using System.Data.Entity;
 using System.Net.Sockets;
 
 
+/// <summary>
+/// Defines RegistrationServiceTests Tests class.
+/// </summary>
+
+
 namespace TelecomManagement.Tests.ServiceTests
 {
     [TestClass]
     public class RegistrationServiceTests
-    {
-        
-            private Mock<UserRepository> userRepositoryMock;
-            private Mock<ClientRepository> clientRepositoryMock;
-            private RegistrationService registrationService;
+    { /// <summary>
+      /// Gets or sets the UserRepository.
+      /// </summary>
 
-            [TestInitialize]
+        private Mock<UserRepository> userRepositoryMock;
+
+        /// <summary>
+        /// Gets or sets the ClientRepository.
+        /// </summary>
+        private Mock<ClientRepository> clientRepositoryMock;
+
+        /// <summary>
+        /// Gets or sets the RegistrationService service.
+        /// </summary>
+        private RegistrationService registrationService;
+
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
+
+        [TestInitialize]
             public void Setup()
             {
                 userRepositoryMock = new Mock<UserRepository>(new Mock<TelecomContext>().Object);
@@ -34,37 +53,66 @@ namespace TelecomManagement.Tests.ServiceTests
                 registrationService = new RegistrationService(userRepositoryMock.Object, clientRepositoryMock.Object);
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Register_WithFirstLetterOfNumeLowerCase_ShouldThrowArgumentException.
+        /// </summary>
+
+
+        [TestMethod]
             public void Register_WithFirstLetterOfNumeLowerCase_ShouldThrowArgumentException()
             {
                 Assert.ThrowsException<ArgumentException>(() => registrationService.Register("username", "password", "nume", "Prenume", "email@example.com", "0123456789", "1234567890123"));
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Register_WithFirstLetterOfPrenumeLowerCase_ShouldThrowArgumentException.
+        /// </summary>
+
+
+        [TestMethod]
             public void Register_WithFirstLetterOfPrenumeLowerCase_ShouldThrowArgumentException()
             {
-                Assert.ThrowsException<ArgumentException>(() => registrationService.Register("username", "password", "Nume", "prenume", "email@example.com", "0123456789", "1234567890123"));
+                Assert.ThrowsException<ArgumentException>(() => registrationService.Register("username", "password", "Nume", "Prenume", "email@example.com", "0123456789", "1234567890123"));
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Register_WithInvalidEmail_ShouldThrowArgumentException.
+        /// </summary>
+
+
+        [TestMethod]
             public void Register_WithInvalidEmail_ShouldThrowArgumentException()
             {
                 Assert.ThrowsException<ArgumentException>(() => registrationService.Register("username", "password", "Nume", "Prenume", "email.com", "0123456789", "1234567890123"));
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Register_WithInvalidPhoneNumber_ShouldThrowArgumentException.
+        /// </summary>
+
+        [TestMethod]
             public void Register_WithInvalidPhoneNumber_ShouldThrowArgumentException()
             {
                 Assert.ThrowsException<ArgumentException>(() => registrationService.Register("username", "password", "Nume", "Prenume", "email@example.com", "123456789", "1234567890123"));
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Register_WithInvalidCNP_ShouldThrowArgumentException.
+        /// </summary>
+
+
+        [TestMethod]
             public void Register_WithInvalidCNP_ShouldThrowArgumentException()
             {
                 Assert.ThrowsException<ArgumentException>(() => registrationService.Register("username", "password", "Nume", "Prenume", "email@example.com", "0123456789", "12345"));
             }
 
-            [TestMethod]
+
+        /// <summary>
+        /// Defines test method Register_ValidInput_ShouldAddUserAndClient.
+        /// </summary>
+
+        [TestMethod]
             public void Register_ValidInput_ShouldAddUserAndClient()
             {
                 // Arrange

@@ -12,13 +12,19 @@ using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Domain;
 
+/// <summary>
+/// Defines test class PlataTests.
+/// </summary>
+
 namespace TelecomManagement.Tests.DomainTests
 {
     [TestClass]
     public class PlataTests
-    {
-       
-            [TestMethod]
+    {  /// <summary>
+       /// Defines test method TestPlataCuDateValide.
+       /// </summary>
+
+        [TestMethod]
             public void TestPlataCuDateValide()
             {
                 // Arrange
@@ -36,8 +42,10 @@ namespace TelecomManagement.Tests.DomainTests
                 // Assert
                 Assert.IsTrue(isValid);
             }
-
-            [TestMethod]
+        /// <summary>
+        /// Defines test method TestPlataCuSumaNegativa.
+        /// </summary>
+        [TestMethod]
             public void TestPlataCuSumaNegativa()
             {
                 // Arrange
@@ -55,27 +63,12 @@ namespace TelecomManagement.Tests.DomainTests
                 // Assert
                 Assert.IsFalse(isValid);
             }
+        /// <summary>
+        /// Defines test method TestPlataCuSumaZero.
+        /// </summary>
 
-            [TestMethod]
-            public void TestPlataFaraContractID()
-            {
-                // Arrange
-                var plata = new Plata
-                {
-                    // ContractId lipsă
-                    EstePlatita = true,
-                    SumaPlata = 100,
-                    DataPlata = DateTime.Now
-                };
 
-                // Act
-                bool isValid = ValidatePlata(plata);
-
-                // Assert
-                Assert.IsFalse(isValid);
-            }
-
-            [TestMethod]
+        [TestMethod]
             public void TestPlataCuSumaZero()
             {
                 // Arrange

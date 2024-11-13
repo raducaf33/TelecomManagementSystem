@@ -11,6 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Domain;
 
+/// <summary>
+/// Defines test class ContractTests.
+/// </summary>
+/// 
 namespace TelecomManagement.Tests.DomainTests
 {
     
@@ -19,7 +23,11 @@ namespace TelecomManagement.Tests.DomainTests
         [TestClass]
         public class ContractTests
         {
-            [TestMethod]
+
+        /// <summary>
+        /// Defines test method Contract_ShouldHaveValidId.
+        /// </summary>
+        [TestMethod]
             public void Contract_ShouldHaveValidId()
             {
                 // Arrange
@@ -31,8 +39,10 @@ namespace TelecomManagement.Tests.DomainTests
                 // Assert
                 Assert.IsTrue(id > 0, "Id-ul contractului ar trebui să fie mai mare decât 0.");
             }
-
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Contract_ShouldHaveValidDataIncheiere.
+        /// </summary>
+        [TestMethod]
             public void Contract_ShouldHaveValidDataIncheiere()
             {
                 // Arrange
@@ -45,7 +55,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsTrue(dataIncheiere <= DateTime.Now, "Data încheierii contractului ar trebui să fie o dată validă.");
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Contract_ShouldHaveValidDataExpirare.
+        /// </summary>
+
+        [TestMethod]
             public void Contract_ShouldHaveValidDataExpirare()
             {
                 // Arrange
@@ -58,7 +72,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsTrue(dataExpirare > DateTime.Now, "Data expirării contractului ar trebui să fie o dată viitoare.");
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Contract_ShouldHaveValidAbonamentId.
+        /// </summary>
+
+        [TestMethod]
             public void Contract_ShouldHaveValidAbonamentId()
             {
                 // Arrange
@@ -71,7 +89,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsTrue(abonamentId > 0, "Id-ul abonamentului ar trebui să fie mai mare decât 0.");
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Contract_ShouldHaveValidClientId.
+        /// </summary>
+
+        [TestMethod]
             public void Contract_ShouldHaveValidClientId()
             {
                 // Arrange
@@ -84,7 +106,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsTrue(clientId > 0, "Id-ul clientului ar trebui să fie mai mare decât 0.");
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Contract_ShouldHaveNonNullClient.
+        /// </summary>
+
+        [TestMethod]
             public void Contract_ShouldHaveNonNullClient()
             {
                 // Arrange
@@ -97,8 +123,12 @@ namespace TelecomManagement.Tests.DomainTests
                 // Assert
                 Assert.IsNotNull(contractClient, "Contractul ar trebui să aibă un client asociat.");
             }
+        /// <summary>
+        /// Defines test method Contract_ShouldHaveNonNullAbonament.
+        /// </summary>
 
-            [TestMethod]
+
+        [TestMethod]
             public void Contract_ShouldHaveNonNullAbonament()
             {
                 // Arrange
@@ -112,7 +142,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsNotNull(contractAbonament, "Contractul ar trebui să aibă un abonament asociat.");
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Contract_DataIncheiere_ShouldBeEarlierThanDataExpirare.
+        /// </summary>
+
+        [TestMethod]
             public void Contract_DataIncheiere_ShouldBeEarlierThanDataExpirare()
             {
                 // Arrange

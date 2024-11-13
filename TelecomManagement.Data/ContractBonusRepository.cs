@@ -12,8 +12,14 @@ using TelecomManagement.Domain;
 
 namespace TelecomManagement.Data
 {
+    /// <summary>
+    /// ContractBonusRepository class.
+    /// </summary>
     public class ContractBonusRepository : RepositoryBase<ContractBonus>
     {
+        /// <summary>
+        /// Initializes a new instance of the ContractBonusRepository class.
+        /// </summary>
         public ContractBonusRepository(TelecomContext context) : base(context)
         {
         }

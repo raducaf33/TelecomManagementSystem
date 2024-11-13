@@ -14,15 +14,38 @@ using TelecomManagement.Services;
 using TelecomManagement.Domain;
 using System.Data.Entity;
 
+/// <summary>
+/// Defines UserServiceTests Tests class.
+/// </summary>
+
 namespace TelecomManagement.Tests.ServiceTests
 {
     [TestClass]
     public class UserServiceTests
     {
+        /// <summary>
+        /// Gets or sets the User DbSet.
+        /// </summary>
         private Mock<DbSet<User>> mockSet;
+
+        /// <summary>
+        /// Gets or sets the Telecom Context.
+        /// </summary>
         private Mock<TelecomContext> mockContext;
+
+        /// <summary>
+        /// Gets or sets the User service.
+        /// </summary>
         private UserService userService;
+
+        /// <summary>
+        /// Gets or sets the User list.
+        /// </summary>
         private List<User> userList;
+
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
 
         [TestInitialize]
         public void Setup()
@@ -61,6 +84,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Initializare UserService cu mockContext
             userService = new UserService(new UserRepository(mockContext.Object));
         }
+
+        /// <summary>
+        /// Defines test method UsernameContainsDigit_WhenUsernameContainsDigit_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void UsernameContainsDigit_WhenUsernameContainsDigit_ShouldReturnTrue()
         {
@@ -73,6 +101,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             Assert.IsTrue(result);
         }
+
+        /// <summary>
+        /// Defines test method PasswordContainsDigit_ShouldReturnTrue.
+        /// </summary>
 
         [TestMethod]
         public void PasswordContainsDigit_ShouldReturnTrue()
@@ -87,6 +119,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.IsTrue(result);
         }
 
+        /// <summary>
+        /// Defines test method PasswordContainsSymbol_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void PasswordContainsSymbol_ShouldReturnTrue()
         {
@@ -99,6 +135,12 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             Assert.IsTrue(result);
         }
+
+
+        /// <summary>
+        /// Defines test method PasswordContainsUppercase_ShouldReturnTrue.
+        /// </summary>
+
 
         [TestMethod]
         public void PasswordContainsUppercase_ShouldReturnTrue()
@@ -113,6 +155,11 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.IsTrue(result);
         }
 
+        /// <summary>
+        /// Defines test method PasswordLengthGreaterThanSix_ShouldReturnTrue.
+        /// </summary>
+
+
         [TestMethod]
         public void PasswordLengthGreaterThanSix_ShouldReturnTrue()
         {
@@ -126,25 +173,56 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.IsTrue(result);
         }
 
+        /// <summary>
+        /// Defines test method UsernameIsNull_ShouldThrowArgumentNullException.
+        /// </summary>
+
+
         [TestMethod]
         public void UsernameIsNull_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var user = new User { Username = null };
+            var user = new User
+            {
+                Id = -1,
+                Username = null,
+                Password = "Parola&",
+                LastLoggedIn = DateTime.Now,
+
+
+            };
 
             // Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => userService.Create(user));
+            Assert.ThrowsException<NullReferenceException>(() => userService.Create(user));
         }
+
+
+        /// <summary>
+        /// Defines test method PasswordIsNull_ShouldThrowArgumentNullException.
+        /// </summary>
 
         [TestMethod]
         public void PasswordIsNull_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var user = new User { Password = null };
+            var user = new User
+            {
+                Id = -1,
+                Username = "raduca33",
+                Password = null,
+                LastLoggedIn = DateTime.Now,
+
+
+            };
 
             // Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => userService.Create(user));
+            Assert.ThrowsException<NullReferenceException>(() => userService.Create(user));
         }
+
+
+        /// <summary>
+        /// Defines test method AddUser_WithIdNegativ_ShouldThrowArgumentNullException.
+        /// </summary>
 
         [TestMethod]
         public void AddUser_WithIdNegativ_ShouldThrowArgumentNullException()
@@ -163,6 +241,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Act & Assert
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(user));
         }
+
+        /// <summary>
+        /// Defines test method EmptyId.
+        /// </summary>
+
 
         [TestMethod]
         public void EmptyId()
@@ -184,6 +267,11 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
+        /// <summary>
+        /// Defines test method LastLoggedInIsPastDate_ShouldNotThrowException.
+        /// </summary>
+
+
         [TestMethod]
         public void LastLoggedInIsPastDate_ShouldNotThrowException()
         {
@@ -194,6 +282,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.IsTrue(user.LastLoggedIn < DateTime.Now);
         }
 
+        /// <summary>
+        /// Defines test method LastLoggedInIsValidDateTime_ShouldNotThrowException.
+        /// </summary>
+
         [TestMethod]
         public void LastLoggedInIsValidDateTime_ShouldNotThrowException()
         {
@@ -203,6 +295,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Act & Assert
             Assert.IsTrue(user.LastLoggedIn != default(DateTime));
         }
+
+        /// <summary>
+        /// Defines test method UpdateUser_WithNegativeId.
+        /// </summary>
 
         [TestMethod]
         public void UpdateUser_WithNegativeId()

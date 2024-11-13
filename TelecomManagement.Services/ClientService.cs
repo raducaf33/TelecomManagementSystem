@@ -10,19 +10,21 @@ using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Domain;
 using TelecomManagement.Data;
-using TelecomManagement.Data.Interfaces;
 using TelecomManagement.Services.Base;
 
 namespace TelecomManagement.Services
 {
+
+    /// <summary>
+    /// ClientService Class which implements ServiceBase Class.
+    /// </summary>
     public class ClientService : ServiceBase<Client>
     {
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StockService"/> class.
+        /// Initializes a new instance of the ClientService class
         /// </summary>
-        /// <param name="stockRepository">The stock repository.</param>
         public ClientService(IRepositoryBase<Client> clientRepository) :
             base(clientRepository)
         {

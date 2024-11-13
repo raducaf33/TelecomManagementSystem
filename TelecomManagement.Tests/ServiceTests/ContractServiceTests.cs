@@ -15,17 +15,39 @@ using TelecomManagement.Services;
 using System.Net.Sockets;
 using System.Data.Entity;
 
+/// <summary>
+/// Defines ContractServiceTests Tests class.
+/// </summary>
+
 namespace TelecomManagement.Tests.ServiceTests
 {
     [TestClass]
     public class ContractServiceTests
     {
+        /// <summary>
+        /// Gets or sets the Contract DbSet.
+        /// </summary>
 
         private Mock<DbSet<Contract>> mockSet;
-        private Mock<DbSet<ContractBonus>> mockSetContractBonus;
+
+        /// <summary>
+        /// Gets or sets the Telecom Context.
+        /// </summary>
         private Mock<TelecomContext> mockContext;
+
+        /// <summary>
+        /// Gets or sets the Contract service.
+        /// </summary>
         private ContractService contractService;
+
+        /// <summary>
+        /// Gets or sets the Contract list.
+        /// </summary>
         private List<Contract> contractList;
+
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
 
         [TestInitialize]
         public void Setup()
@@ -65,6 +87,11 @@ namespace TelecomManagement.Tests.ServiceTests
             contractService = new ContractService(new ContractRepository(mockContext.Object));
         }
 
+
+        /// <summary>
+        /// Defines test method AddContract_WithIdNegativ_ShouldThrowArgumentNullException.
+        /// </summary>
+
         [TestMethod]
         public void AddContract_WithIdNegativ_ShouldThrowArgumentNullException()
         {
@@ -83,6 +110,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(contract));
         }
 
+        /// <summary>
+        /// Defines test method AddContract_WithAbonamentIdNegativ_ShouldThrowArgumentNullException.
+        /// </summary>
+
         [TestMethod]
         public void AddContract_WithAbonamentIdNegativ_ShouldThrowArgumentNullException()
         {
@@ -100,7 +131,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Act & Assert
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(contract));
         }
-
+        /// <summary>
+        /// Defines test method AddContract_WithClientIdNegativ_ShouldThrowArgumentNullException.
+        /// </summary>
         [TestMethod]
         public void AddContract_WithClientIdNegativ_ShouldThrowArgumentNullException()
         {
@@ -118,6 +151,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Act & Assert
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(contract));
         }
+
+        /// <summary>
+        /// Defines test method EmptyId.
+        /// </summary>
 
         [TestMethod]
         public void EmptyId()
@@ -139,6 +176,10 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
+        /// <summary>
+        /// Defines test method EmptyAbonamentId.
+        /// </summary>
+
         [TestMethod]
         public void EmptyAbonamentId()
         {
@@ -158,6 +199,9 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
+        /// <summary>
+        /// Defines test method EmptyClientId.
+        /// </summary>
 
         [TestMethod]
         public void EmptyClientId()
@@ -179,6 +223,10 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
+        /// <summary>
+        /// Defines test method TestAddContractWithValidData.
+        /// </summary>
+
         [TestMethod]
         public void TestAddContractWithValidData()
         {
@@ -196,6 +244,11 @@ namespace TelecomManagement.Tests.ServiceTests
             mockSet.Verify(m => m.Add(It.IsAny<Contract>()), Times.Once());
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
+
+        /// <summary>
+        /// Defines test method UpdateContract_WithNegativeId.
+        /// </summary>
+
 
         [TestMethod]
         public void UpdateContract_WithNegativeId()
@@ -221,6 +274,10 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines test method UpdateContract_WithNegativeAbonamentId.
+        /// </summary>
+
         [TestMethod]
         public void UpdateContract_WithNegativeAbonamentId()
         {
@@ -244,6 +301,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
+
+        /// <summary>
+        /// Defines test method UpdateContract_WithNegativeClientId.
+        /// </summary>
+
 
         [TestMethod]
         public void UpdateContract_WithNegativeClientId()
@@ -269,6 +331,11 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines test method ContractDuration_ShouldBeLessThan1Year.
+        /// </summary>
+
+
         [TestMethod]
         public void ContractDuration_ShouldBeLessThan1Year()
         {
@@ -288,6 +355,10 @@ namespace TelecomManagement.Tests.ServiceTests
             var durationInMonths = (contract.DataExpirare - contract.DataIncheiere).Days / 30; // Durata contractului în luni
             Assert.IsTrue(durationInMonths < 12); // Verificăm dacă durata este mai mică de 12 luni
         }
+
+        /// <summary>
+        /// Defines test method ContractDuration_ShouldBeGreaterThan1Year.
+        /// </summary>
         [TestMethod]
         public void ContractDuration_ShouldBeGreaterThan1Year()
         {
@@ -304,6 +375,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             Assert.IsTrue(durationInYears > 1);
         }
+        /// <summary>
+        /// Defines test method ContractSignedInIanuarie_ShouldReturnTrue.
+        /// </summary>
 
         [TestMethod]
         public void ContractSignedInIanuarie_ShouldReturnTrue()
@@ -323,6 +397,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(1, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+
+        /// <summary>
+        /// Defines test method ContractSignedInFebruarie_ShouldReturnTrue.
+        /// </summary>
 
 
 
@@ -344,6 +422,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(2, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+        /// <summary>
+        /// Defines test method ContractSignedInMartie_ShouldReturnTrue.
+        /// </summary>
 
         [TestMethod]
         public void ContractSignedInMartie_ShouldReturnTrue()
@@ -364,6 +445,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(3, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
 
+        /// <summary>
+        /// Defines test method ContractSignedInAprilie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void ContractSignedInAprilie_ShouldReturnTrue()
         {
@@ -382,6 +467,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(4, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+
+        /// <summary>
+        /// Defines test method ContractSignedInMai_ShouldReturnTrue.
+        /// </summary>
+
 
 
         [TestMethod]
@@ -403,6 +493,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(5, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
 
+        /// <summary>
+        /// Defines test method ContractSignedInIunie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void ContractSignedInIunie_ShouldReturnTrue()
         {
@@ -422,6 +516,11 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(6, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
 
+
+        /// <summary>
+        /// Defines test method ContractSignedInIulie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void ContractSignedInIulie_ShouldReturnTrue()
         {
@@ -440,6 +539,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(7, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+        /// <summary>
+        /// Defines test method ContractSignedInAugust_ShouldReturnTrue.
+        /// </summary>
 
         [TestMethod]
         public void ContractSignedInAugust_ShouldReturnTrue()
@@ -460,6 +562,11 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(8, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
 
+
+        /// <summary>
+        /// Defines test method ContractSignedInSeptembrie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void ContractSignedInSeptembrie_ShouldReturnTrue()
         {
@@ -478,6 +585,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(9, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+
+        /// <summary>
+        /// Defines test method ContractSignedInOctombrie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void ContractSignedInOctombrie_ShouldReturnTrue()
         {
@@ -496,6 +608,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(10, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+
+        /// <summary>
+        /// Defines test method ContractSignedInNoiembrie_ShouldReturnTrue.
+        /// </summary>
 
         [TestMethod]
         public void ContractSignedInNoiembrie_ShouldReturnTrue()
@@ -516,6 +632,11 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(11, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
 
+
+        /// <summary>
+        /// Defines test method ContractSignedInDecembrie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void ContractSignedInDecembrie_ShouldReturnTrue()
         {
@@ -535,6 +656,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(12, contract.DataIncheiere.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
 
+        /// <summary>
+        /// Defines test method ContractService_ShouldIndicate_ContractExpired.
+        /// </summary>
+
         [TestMethod]
         public void ContractService_ShouldIndicate_ContractExpired()
         {
@@ -548,7 +673,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             Assert.IsTrue(esteExpirat, "Contractul ar trebui să fie expirat.");
         }
-
+        /// <summary>
+        /// Defines test method ContractService_ShouldIndicate_ContractNotExpired.
+        /// </summary>
         [TestMethod]
         public void ContractService_ShouldIndicate_ContractNotExpired()
         {

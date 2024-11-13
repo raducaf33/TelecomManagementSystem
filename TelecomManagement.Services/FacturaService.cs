@@ -14,14 +14,17 @@ using TelecomManagement.Services.Base;
 
 namespace TelecomManagement.Services
 {
+
+    /// <summary>
+    /// FacturaService Class which implements ServiceBase Class.
+    /// </summary>
     public class FacturaService : ServiceBase<Factura>
     {
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StockService"/> class.
+        /// Initializes a new instance of the FacturaService class
         /// </summary>
-        /// <param name="stockRepository">The stock repository.</param>
         public FacturaService(IRepositoryBase<Factura> facturaRepository) :
             base(facturaRepository)
         {

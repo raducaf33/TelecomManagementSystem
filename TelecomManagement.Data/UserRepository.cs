@@ -15,9 +15,14 @@ using System.Runtime.Remoting.Contexts;
 
 namespace TelecomManagement.Data
 {
+    /// <summary>
+    /// UserRepository class.
+    /// </summary>
     public class UserRepository : RepositoryBase<User>
-    {     
-
+    {
+        /// <summary>
+        /// Initializes a new instance of the UserRepository class.
+        /// </summary>
         public UserRepository(TelecomContext context) : base(context)
         {
             

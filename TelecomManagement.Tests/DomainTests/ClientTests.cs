@@ -12,10 +12,43 @@ using TelecomManagement.Domain;
 
 namespace TelecomManagement.Tests.DomainTests
 {
-   
+    /// <summary>
+    /// Defines test class ClientTests.
+    /// </summary>
+
         [TestClass]
         public class ClientTests
         {
+        
+        
+        private int CalculateExpectedAge(Client client, DateTime currentDate)
+        {
+            return client.CalculateAgeFromCnp(client.CNP, currentDate);
+        }
+        /// <summary>
+        /// Defines test method Client_ShouldCalculateCorrectAge_FromCNP_Male_Between_1800_1899.
+        /// </summary>
+
+        [TestMethod]
+        public void Client_ShouldCalculateCorrectAge_FromCNP_Male_Between_1800_1899()
+        {
+            // Arrange
+            var cnp = "3531020154897"; // Născut în 1932
+            var client = new Client { CNP = cnp };
+
+            // Act
+            var expectedAge = CalculateExpectedAge(client, new DateTime(2024, 6, 2));
+            var actualAge = client.CalculateAgeFromCnp(cnp, new DateTime(2024, 6, 2));
+
+            // Assert
+            Assert.AreEqual(expectedAge, actualAge, "Vârsta calculată este incorectă pentru un CNP masculin născut după anul 2000.");
+        }
+
+        /// <summary>
+        /// Defines test method Client_ShouldCalculateCorrectAge_FromCNP_Male_Between_1900_1990.
+        /// </summary>
+
+
         [TestMethod]
         public void Client_ShouldCalculateCorrectAge_FromCNP_Male_Between_1900_1999()
         {
@@ -24,25 +57,16 @@ namespace TelecomManagement.Tests.DomainTests
             var client = new Client { CNP = cnp };
 
             // Act
-            var varsta = client.Varsta;
+            var expectedAge = CalculateExpectedAge(client, new DateTime(2024, 6, 2));
+            var actualAge = client.CalculateAgeFromCnp(cnp, new DateTime(2024, 6, 2));
 
             // Assert
-            Assert.AreEqual(90, varsta, "Vârsta calculată este incorectă pentru un CNP masculin născut între 1900 și 1999.");
+            Assert.AreEqual(expectedAge, actualAge, "Vârsta calculată este incorectă pentru un CNP masculin născut după anul 2000.");
         }
 
-        [TestMethod]
-        public void Client_ShouldCalculateCorrectAge_FromCNP_Female_Between_1900_1999()
-        {
-            // Arrange
-            var cnp = "2801103166912"; // Născută în 1932
-            var client = new Client { CNP = cnp };
-
-            // Act
-            var varsta = client.Varsta;
-
-            // Assert
-            Assert.AreEqual(90, varsta, "Vârsta calculată este incorectă pentru un CNP feminin născut între 1900 și 1999.");
-        }
+        /// <summary>
+        /// Defines test method Client_ShouldCalculateCorrectAge_FromCNP_Male_After_2000.
+        /// </summary>
 
         [TestMethod]
         public void Client_ShouldCalculateCorrectAge_FromCNP_Male_After_2000()
@@ -52,11 +76,36 @@ namespace TelecomManagement.Tests.DomainTests
             var client = new Client { CNP = cnp };
 
             // Act
-            var varsta = client.Varsta;
+            var expectedAge = CalculateExpectedAge(client, new DateTime(2024, 6, 2));
+            var actualAge = client.CalculateAgeFromCnp(cnp, new DateTime(2024, 6, 2));
 
             // Assert
-            Assert.AreEqual(22, varsta, "Vârsta calculată este incorectă pentru un CNP masculin născut după anul 2000.");
+            Assert.AreEqual(expectedAge, actualAge, "Vârsta calculată este incorectă pentru un CNP masculin născut după anul 2000.");
         }
+
+        /// <summary>
+        /// Defines test method Client_ShouldCalculateCorrectAge_FromCNP_Female_Between_1900_1999.
+        /// </summary>
+
+
+        [TestMethod]
+        public void Client_ShouldCalculateCorrectAge_FromCNP_Female_Between_1900_1999()
+        {
+            // Arrange
+            var cnp = "2801103166912"; // Născută în 1932
+            var client = new Client { CNP = cnp };
+
+            // Act
+            var expectedAge = CalculateExpectedAge(client, new DateTime(2024, 6, 2));
+            var actualAge = client.CalculateAgeFromCnp(cnp, new DateTime(2024, 6, 2));
+
+            // Assert
+            Assert.AreEqual(expectedAge, actualAge, "Vârsta calculată este incorectă pentru un CNP masculin născut după anul 2000.");
+        }
+
+        /// <summary>
+        /// Defines test method Client_ShouldCalculateCorrectAge_FromCNP_Female_After_2000.
+        /// </summary>
 
         [TestMethod]
         public void Client_ShouldCalculateCorrectAge_FromCNP_Female_After_2000()
@@ -66,11 +115,16 @@ namespace TelecomManagement.Tests.DomainTests
             var client = new Client { CNP = cnp };
 
             // Act
-            var varsta = client.Varsta;
+            var expectedAge = CalculateExpectedAge(client, new DateTime(2024, 6, 2));
+            var actualAge = client.CalculateAgeFromCnp(cnp, new DateTime(2024, 6, 2));
 
             // Assert
-            Assert.AreEqual(16, varsta, "Vârsta calculată este incorectă pentru un CNP feminin născut după anul 2000.");
+            Assert.AreEqual(expectedAge, actualAge, "Vârsta calculată este incorectă pentru un CNP masculin născut după anul 2000.");
         }
+
+        /// <summary>
+        /// Defines test method Client_ShouldCalculateCorrectAge_FromCNP_Before2000.
+        /// </summary>
         [TestMethod]
             public void Client_ShouldCalculateCorrectAge_FromCNP_Before2000()
             {
@@ -78,27 +132,37 @@ namespace TelecomManagement.Tests.DomainTests
                 var cnp = "1960101123456"; // Născut în 1960
                 var client = new Client { CNP = cnp };
 
-                // Act
-                var varsta = client.Varsta;
+            // Act
+            var expectedAge = CalculateExpectedAge(client, new DateTime(2024, 6, 2));
+            var actualAge = client.CalculateAgeFromCnp(cnp, new DateTime(2024, 6, 2));
 
-                // Assert
-                Assert.AreEqual(28, varsta, "Vârsta calculată este incorectă pentru un CNP născut înainte de 2000.");
-            }
+            // Assert
+            Assert.AreEqual(expectedAge, actualAge, "Vârsta calculată este incorectă pentru un CNP masculin născut după anul 2000.");
+        }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Client_ShouldCalculateCorrectAge_FromCNP_After2000.
+        /// </summary>
+
+        [TestMethod]
             public void Client_ShouldCalculateCorrectAge_FromCNP_After2000()
             {
                 // Arrange
                 var cnp = "5010101123456"; // Născut în 2001
                 var client = new Client { CNP = cnp };
 
-                // Act
-                var varsta = client.Varsta;
+            // Act
+            var expectedAge = CalculateExpectedAge(client, new DateTime(2024, 6, 2));
+            var actualAge = client.CalculateAgeFromCnp(cnp, new DateTime(2024, 6, 2));
 
-                // Assert
-                Assert.AreEqual(23, varsta, "Vârsta calculată este incorectă pentru un CNP născut după 2000.");
-            }
-            [TestMethod]
+            // Assert
+            Assert.AreEqual(expectedAge, actualAge, "Vârsta calculată este incorectă pentru un CNP masculin născut după anul 2000.");
+        }
+
+        /// <summary>
+        /// Defines test method Client_ShouldCalculateCorrectAge_ForInvalidCNP_Length.
+        /// </summary>
+        [TestMethod]
             public void Client_ShouldThrowException_ForInvalidCNP_Length()
             {
                 // Arrange
@@ -110,7 +174,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.AreEqual("CNP-ul trebuie să aibă 13 caractere.", ex.Message);
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Client_ShouldHaveNonEmptyNume.
+        /// </summary>
+
+        [TestMethod]
             public void Client_ShouldHaveNonEmptyNume()
             {
                 // Arrange
@@ -123,7 +191,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsFalse(string.IsNullOrEmpty(nume), "Numele nu ar trebui să fie gol.");
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Client_ShouldHaveNonEmptyPrenume.
+        /// </summary>
+
+        [TestMethod]
             public void Client_ShouldHaveNonEmptyPrenume()
             {
                 // Arrange
@@ -136,7 +208,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsFalse(string.IsNullOrEmpty(prenume), "Prenumele nu ar trebui să fie gol.");
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Client_Email_ShouldBeValidFormat.
+        /// </summary>
+
+        [TestMethod]
             public void Client_Email_ShouldBeValidFormat()
             {
                 // Arrange
@@ -148,12 +224,15 @@ namespace TelecomManagement.Tests.DomainTests
                 // Assert
                 Assert.IsTrue(email.Contains("@") && email.Contains("."), "Email-ul trebuie să aibă un format valid.");
             }
+        /// <summary>
+        /// Defines test method Client_Telefon_ShouldBeValidFormat.
+        /// </summary>
 
-            [TestMethod]
+        [TestMethod]
             public void Client_Telefon_ShouldBeValidFormat()
             {
                 // Arrange
-                var client = new Client { Telefon = "0712345678" };
+                var client = new Client { Telefon = "0712834578" };
 
                 // Act
                 var telefon = client.Telefon;

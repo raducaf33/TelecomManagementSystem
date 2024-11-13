@@ -12,12 +12,17 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TelecomManagement.Domain;
 
+/// <summary>
+/// Defines test class AbonamentTests.
+/// </summary>
 
 namespace TelecomManagement.Tests.DomainTests
 {
     [TestClass]
     public class AbonamentTests
-    {
+    { /// <summary>
+      /// Defines the test method AbonamentSetGet.
+      /// </summary>
         [TestMethod]
         public void AbonamentSetGet()
         {
@@ -41,6 +46,10 @@ namespace TelecomManagement.Tests.DomainTests
             Assert.AreEqual(10.0m, abonament.TraficDateInclus);
         }
 
+        /// <summary>
+        /// Defines the test method Abonament_InvalidPrice_Should_ThrowException.
+        /// </summary>
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Abonament_InvalidPrice_Should_ThrowException()
@@ -59,6 +68,10 @@ namespace TelecomManagement.Tests.DomainTests
             // Act & Assert
             ValidateAbonament(abonament);
         }
+
+        /// <summary>
+        /// Defines the test method Abonament_Nume_ShouldBeRequired.
+        /// </summary>
 
         [TestMethod]
         public void Abonament_Nume_ShouldBeRequired()
@@ -81,6 +94,10 @@ namespace TelecomManagement.Tests.DomainTests
             Assert.IsFalse(isValid);
             Assert.IsTrue(results.Any(vr => vr.MemberNames.Contains("Nume")));
         }
+
+        /// <summary>
+        /// Defines the method ValidateAbonament.
+        /// </summary>
 
 
         private void ValidateAbonament(Abonament abonament)

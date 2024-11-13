@@ -14,21 +14,47 @@ using TelecomManagement.Domain;
 using TelecomManagement.Services;
 using System.Data.Entity;
 
+/// <summary>
+/// Defines PlataServiceTests Tests class.
+/// </summary>
+
 namespace TelecomManagement.Tests.ServiceTests
 {
     [TestClass]
     public class PlataServiceTests
-    {
+    { /// <summary>
+      /// Gets or sets the Plata DBSet.
+      /// </summary>
         private Mock<DbSet<Plata>> mockSet;
+
+        /// <summary>
+        /// Gets or sets the Telecom Context.
+        /// </summary>
         private Mock<TelecomContext> mockContext;
+
+        /// <summary>
+        /// Gets or sets the Plata Service.
+        /// </summary>
         private PlataService plataService;
+
+        /// <summary>
+        /// Gets or sets the Plata list.
+        /// </summary>
         private List<Plata> plataList;
-        private  Mock<IRepositoryBase<Plata>> mockPlataRepository;
+
+        /// <summary>
+        /// Gets or sets the Plata interface methods.
+        /// </summary>
+        private Mock<IRepositoryBase<Plata>> mockPlataRepository;
+
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
 
         [TestInitialize]
         public void Setup()
         {
-            // Inițializare lista de plăți
+            
             plataList = new List<Plata>
     {
         new Plata { Id = 1, ContractId = 1, EstePlatita = true, SumaPlata = 100, DataPlata = DateTime.Now }, // Exemplu de plată
@@ -76,7 +102,20 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext = new Mock<TelecomContext>();
             mockContext.Setup(m => m.Set<Plata>()).Returns(mockSet.Object);
             plataService = new PlataService(new PlataRepository(mockContext.Object));
+
+            // Mock pentru TelecomContext
+           // mockContext = new Mock<TelecomContext>();
+           // mockContext.Setup(m => m.Set<Plata>()).Returns(mockSet.Object);
+
+          //  mockSet = new Mock<DbSet<Plata>>();
+            
+           // mockContext.Setup(m => m.Set<Plata>()).Returns(mockSet.Object);
         }
+
+        /// <summary>
+        /// Defines test method AddPlata_WithNegativeid_ShouldThrowArgumentException.
+        /// </summary>
+
         [TestMethod]
         public void AddPlata_WithNegativeid_ShouldThrowArgumentException()
         {
@@ -93,6 +132,11 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(plata));
 
         }
+
+        /// <summary>
+        /// Defines test method AddPlata_WithNegativeContractid_ShouldThrowArgumentException.
+        /// </summary>
+
 
         [TestMethod]
         public void AddPlata_WithNegativeContractid_ShouldThrowArgumentException()
@@ -111,6 +155,10 @@ namespace TelecomManagement.Tests.ServiceTests
 
         }
 
+        /// <summary>
+        /// Defines test method AddPlata_WithNegativeSumaPlata_ShouldThrowArgumentException.
+        /// </summary>
+
         [TestMethod]
         public void AddPlata_WithNegativeSumaPlata_ShouldThrowArgumentException()
         {
@@ -127,6 +175,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(plata));
 
         }
+
+        /// <summary>
+        /// Defines test method EmptyId.
+        /// </summary>
 
         [TestMethod]
         public void EmptyId()
@@ -148,6 +200,11 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
+
+        /// <summary>
+        /// Defines test method EmptyContractId.
+        /// </summary>
+         
         [TestMethod]
         public void EmptyContractId()
         {
@@ -167,6 +224,10 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
+
+        /// <summary>
+        /// Defines test method EmptySumaPlata.
+        /// </summary>
 
         [TestMethod]
         public void EmptySumaPlata()
@@ -188,6 +249,10 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
+        /// <summary>
+        /// Defines test method DeleteBonus_WithValidId_ShouldRemoveFromRepository.
+        /// </summary>
+
         [TestMethod]
         public void DeleteBonus_WithValidId_ShouldRemoveFromRepository()
         {
@@ -204,6 +269,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(1, plataList.Count);
         }
 
+        /// <summary>
+        /// Defines test method GetBPlataById_WithValidId_ShouldReturnBonus.
+        /// </summary>
+        
         [TestMethod]
         public void GetBPlataById_WithValidId_ShouldReturnBonus()
         {
@@ -218,6 +287,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(Id, plata.Id);
         }
 
+        /// <summary>
+        /// Defines test method GetPlataById_WithInvalidId_ShouldReturnNull.
+        /// </summary>
+
         [TestMethod]
         public void GetPlataById_WithInvalidId_ShouldReturnNull()
         {
@@ -227,6 +300,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             Assert.IsNull(plata);
         }
+
+        /// <summary>
+        /// Defines test method UpdatePlataId_WithVNegativeValues.
+        /// </summary>
 
         [TestMethod]
         public void UpdatePlataId_WithVNegativeValues()
@@ -251,6 +328,10 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines test method UpdatePlataContractId_WithVNegativeValues.
+        /// </summary>
+
         [TestMethod]
         public void UpdatePlataContractId_WithVNegativeValues()
         {
@@ -273,6 +354,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
+
+        /// <summary>
+        /// Defines test method UpdatePlataSumaPlata_WithVNegativeValues.
+        /// </summary>
 
         [TestMethod]
         public void UpdatePlataSumaPlata_WithVNegativeValues()
@@ -297,6 +382,10 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines test method PlataService_ShouldIndicate_PaymentMadeForContract.
+        /// </summary>
+
         [TestMethod]
         public void PlataService_ShouldIndicate_PaymentMadeForContract()
         {
@@ -312,6 +401,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             Assert.IsTrue(estePlataFacuta, "Ar trebui să se indice că plata a fost făcută pentru contract.");
         }
+
+
+        /// <summary>
+        /// Defines test method PlataService_ShouldIndicate_NoPaymentMadeForContract.
+        /// </summary>
 
         [TestMethod]
         public void PlataService_ShouldIndicate_NoPaymentMadeForContract()
@@ -329,7 +423,11 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.IsFalse(estePlataFacuta, "Ar trebui să se indice că nu s-a făcut nicio plată pentru contract.");
         }
 
-        
+        /// <summary>
+        /// Defines test method PlataPaidInIanuarie_ShouldReturnTrue.
+        /// </summary>
+
+
         [TestMethod]
         public void PlataPaidInIanuarie_ShouldReturnTrue()
         {
@@ -348,6 +446,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(01, plata.DataPlata.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+
+        /// <summary>
+        /// Defines test method PlataPaidInFebruarie_ShouldReturnTrue.
+        /// </summary>
+
 
         [TestMethod]
         public void PlataPaidInFebruarie_ShouldReturnTrue()
@@ -369,8 +472,13 @@ namespace TelecomManagement.Tests.ServiceTests
         }
 
 
+        /// <summary>
+        /// Defines test method PlataPaidInMartie_ShouldReturnTrue.
+        /// </summary>
+
+
         [TestMethod]
-        public void CPlataPaidInMartie_ShouldReturnTrue()
+        public void PlataPaidInMartie_ShouldReturnTrue()
         {
             // Arrange
             var plataid = 1;
@@ -387,6 +495,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(03, plata.DataPlata.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+
+        /// <summary>
+        /// Defines test method PlataPaidInAprilie_ShouldReturnTrue.
+        /// </summary>
+
 
         [TestMethod]
         public void PlataPaidInAprilie_ShouldReturnTrue()
@@ -407,6 +520,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(04, plata.DataPlata.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
 
+        /// <summary>
+        /// Defines test method PlataPaidInAprilie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void PlataPaidInMai_ShouldReturnTrue()
         {
@@ -425,6 +542,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(05, plata.DataPlata.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+
+        /// <summary>
+        /// Defines test method PlataPaidInIunie_ShouldReturnTrue.
+        /// </summary>
 
         [TestMethod]
         public void PlataPaidInIunie_ShouldReturnTrue()
@@ -445,6 +566,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(06, plata.DataPlata.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
 
+        /// <summary>
+        /// Defines test method PlataPaidInIulie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void PlataPaidInIulie_ShouldReturnTrue()
         {
@@ -463,6 +588,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(07, plata.DataPlata.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+
+        /// <summary>
+        /// Defines test method PlataPaidInAugust_ShouldReturnTrue.
+        /// </summary>
+
 
 
         [TestMethod]
@@ -484,6 +614,11 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(08, plata.DataPlata.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
 
+        /// <summary>
+        /// Defines test method PlataPaidInSeptembrie_ShouldReturnTrue.
+        /// </summary>
+
+
 
         [TestMethod]
         public void PlataPaidInSeptembrie_ShouldReturnTrue()
@@ -504,6 +639,11 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(09, plata.DataPlata.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
 
+        /// <summary>
+        /// Defines test method PlataPaidInOctombrie_ShouldReturnTrue.
+        /// </summary>
+
+
         [TestMethod]
         public void PlataPaidInOctombrie_ShouldReturnTrue()
         {
@@ -522,6 +662,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(10, plata.DataPlata.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+
+        /// <summary>
+        /// Defines test method PlataPaidInNoiembrie_ShouldReturnTrue.
+        /// </summary>
 
 
         [TestMethod]
@@ -542,6 +686,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Adăugăm aserțiunea pentru luna de încheiere a contractului
             Assert.AreEqual(11, plata.DataPlata.Month); // Verificăm dacă data de încheiere este în luna septembrie
         }
+
+        /// <summary>
+        /// Defines test method PlataPaidInDecembrie_ShouldReturnTrue.
+        /// </summary>
 
         [TestMethod]
         public void PlataPaidInDecembrie_ShouldReturnTrue()

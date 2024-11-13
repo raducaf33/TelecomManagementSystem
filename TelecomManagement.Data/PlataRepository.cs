@@ -12,11 +12,16 @@ using TelecomManagement.Domain;
 
 namespace TelecomManagement.Data
 {
+    /// <summary>
+    /// PlataRepository class.
+    /// </summary>
     public class PlataRepository : RepositoryBase<Plata>
     {
-        
 
 
+        /// <summary>
+        /// Initializes a new instance of the PlataRepository class.
+        /// </summary>
         public PlataRepository(TelecomContext context) : base(context)
         {
           

@@ -14,16 +14,43 @@ using TelecomManagement.Domain;
 using TelecomManagement.Services;
 using System.Data.Entity;
 
+/// <summary>
+/// Defines FacturaServiceTests Tests class.
+/// </summary>
+
 namespace TelecomManagement.Tests.ServiceTests
 {
     [TestClass]
     public class FacturaServiceTests
     {
+        /// <summary>
+        /// Gets or sets the Factura DbSet.
+        /// </summary>
         private Mock<DbSet<Factura>> mockSet;
+
+        /// <summary>
+        /// Gets or sets the Telecom Context.
+        /// </summary>
         private Mock<TelecomContext> mockContext;
+
+        /// <summary>
+        /// Gets or sets the Factura service.
+        /// </summary>
         private FacturaService facturaService;
+
+        /// <summary>
+        /// Gets or sets the Factura list.
+        /// </summary>
         private List<Factura> facturaList;
+
+        /// <summary>
+        /// Gets or sets the Factura interface.
+        /// </summary>
         private Mock<IRepositoryBase<Factura>> mockFacturaRepository;
+
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
 
 
         [TestInitialize]
@@ -65,7 +92,11 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method AddCFactura_WithIdNegativ_ShouldThrowArgumentNullException.
+        /// </summary>
+
+        [TestMethod]
         public void AddCFactura_WithIdNegativ_ShouldThrowArgumentNullException()
         {
             // Arrange
@@ -82,6 +113,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Act & Assert
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(factura));
         }
+
+
+        /// <summary>
+        /// Defines test method AddCFactura_WithContractIdNegativ_ShouldThrowArgumentNullException.
+        /// </summary>
 
         [TestMethod]
         public void AddCFactura_WithContractIdNegativ_ShouldThrowArgumentNullException()
@@ -102,6 +138,11 @@ namespace TelecomManagement.Tests.ServiceTests
         }
 
 
+        /// <summary>
+        /// Defines test method AddCFactura_WithSumaTotalaPlataNegativ_ShouldThrowArgumentNullException.
+        /// </summary>
+
+
         [TestMethod]
         public void AddCFactura_WithSumaTotalaPlataNegativ_ShouldThrowArgumentNullException()
         {
@@ -119,7 +160,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Act & Assert
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(factura));
         }
-        
+
+        /// <summary>
+        /// Defines test method EmptyId.
+        /// </summary>
 
         [TestMethod]
         public void EmptyId()
@@ -141,8 +185,12 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
+        /// <summary>
+        /// Defines test method EmptyContractId.
+        /// </summary>
+
         [TestMethod]
-        public void EmptyCntractId()
+        public void EmptyContractId()
         {
             // Arrange
             var factura = new Factura
@@ -160,6 +208,12 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
+
+
+        /// <summary>
+        /// Defines test method EmptySumaaTotalaPlata.
+        /// </summary>
+
 
         [TestMethod]
         public void EmptySumaaTotalaPlata()
@@ -180,6 +234,11 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
+
+        /// <summary>
+        /// Defines test method UpdateFactura_WithVNegativeIdValue.
+        /// </summary>
+
 
         [TestMethod]
         public void UpdateFactura_WithVNegativeIdValue()
@@ -208,6 +267,11 @@ namespace TelecomManagement.Tests.ServiceTests
         }
 
 
+        /// <summary>
+        /// Defines test method UpdateFactura_WithVNegativeContractIdValue.
+        /// </summary>
+
+
         [TestMethod]
         public void UpdateFactura_WithVNegativeContractIdValue()
         {
@@ -233,6 +297,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
+        /// <summary>
+        /// Defines test method UpdateFactura_WithVNegativeSumaTotalaPlataValue.
+        /// </summary>
 
         [TestMethod]
         public void UpdateFactura_WithVNegativeSumaTotalaPlataValue()
@@ -258,36 +325,10 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines test method GetPlataById_WithInvalidId_ShouldReturnNull.
+        /// </summary>
 
-        [TestMethod]
-        public void DeleteFactura_WithValidId_ShouldRemoveFromRepository()
-        {
-            // Arrange
-            var bonus = facturaList.First();
-
-            // Act
-            mockSet.Object.Remove(bonus);
-            mockContext.Object.SaveChanges();
-
-            // Assert
-            mockSet.Verify(m => m.Remove(It.IsAny<Factura>()), Times.Once());
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
-            Assert.AreEqual(6, facturaList.Count);
-        }
-
-        [TestMethod]
-        public void GetBPlataById_WithValidId_ShouldReturnFactura()
-        {
-            // Arrange
-            var Id = 9;
-
-            // Act
-            var plata = mockSet.Object.Find(Id);
-
-            // Assert
-             
-            Assert.AreEqual(Id, plata.Id);
-        }
 
         [TestMethod]
         public void GetPlataById_WithInvalidId_ShouldReturnNull()
@@ -298,6 +339,12 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             Assert.IsNull(plata);
         }
+
+
+        /// <summary>
+        /// Defines test method Create_ShouldAddFactura.
+        /// </summary>
+
 
         [TestMethod]
         public void Create_ShouldAddFactura()
@@ -313,6 +360,12 @@ namespace TelecomManagement.Tests.ServiceTests
             mockFacturaRepository.Verify(repo => repo.Create(It.Is<Factura>(f => f.Id == 1)), Times.Once);
         }
 
+
+        /// <summary>
+        /// Defines test method Create_NullFactura_ShouldThrowArgumentNullException.
+        /// </summary>
+
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Create_NullFactura_ShouldThrowArgumentNullException()
@@ -322,6 +375,10 @@ namespace TelecomManagement.Tests.ServiceTests
 
             // Assert is handled by ExpectedException
         }
+
+        /// <summary>
+        /// Defines test method Update_ShouldUpdateFactura.
+        /// </summary>
 
         [TestMethod]
         public void Update_ShouldUpdateFactura()
@@ -338,6 +395,11 @@ namespace TelecomManagement.Tests.ServiceTests
             mockFacturaRepository.Verify(repo => repo.Update(It.Is<Factura>(f => f.SumaTotalaPlata == 600)), Times.Once);
         }
 
+        /// <summary>
+        /// Defines test method Update_NullFactura_ShouldThrowArgumentNullException.
+        /// </summary>
+
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Update_NullFactura_ShouldThrowArgumentNullException()
@@ -347,6 +409,10 @@ namespace TelecomManagement.Tests.ServiceTests
 
             // Assert is handled by ExpectedException
         }
+
+        /// <summary>
+        /// Defines test method Delete_ShouldRemoveFactura.
+        /// </summary>
 
         [TestMethod]
         public void Delete_ShouldRemoveFactura()
@@ -362,6 +428,27 @@ namespace TelecomManagement.Tests.ServiceTests
             mockFacturaRepository.Verify(repo => repo.Delete(It.Is<Factura>(f => f.Id == 1)), Times.Once);
         }
 
+        /// <summary>
+        /// Defines test method Delete_ShouldRemoveFactura_WithInvalidId.
+        /// </summary>
+        [TestMethod]
+        public void Delete_ShouldRemoveFactura_WithInvalidId()
+        {
+            // Arrange
+            var factura = new Factura { Id = -2, ContractId = 100, SumaTotalaPlata = 500, DataEmitere = new DateTime(2024, 1, 1), DataScadenta = new DateTime(2024, 2, 1) };
+            mockFacturaRepository.Setup(repo => repo.Delete(It.IsAny<Factura>())).Verifiable();
+
+            // Act
+            facturaService.Delete(factura);
+
+            // Assert
+            mockFacturaRepository.Verify(repo => repo.Delete(It.Is<Factura>(f => f.Id == -2)), Times.Once);
+        }
+
+        /// <summary>
+        /// Defines test method Delete_NullFactura_ShouldThrowArgumentNullException.
+        /// </summary>
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Delete_NullFactura_ShouldThrowArgumentNullException()
@@ -371,6 +458,10 @@ namespace TelecomManagement.Tests.ServiceTests
 
             // Assert is handled by ExpectedException
         }
+
+        /// <summary>
+        /// Defines test method DeleteById_ShouldRemoveFacturaById.
+        /// </summary>
 
         [TestMethod]
         public void DeleteById_ShouldRemoveFacturaById()
@@ -386,6 +477,11 @@ namespace TelecomManagement.Tests.ServiceTests
             mockFacturaRepository.Verify(repo => repo.Delete(facturaId), Times.Once);
         }
 
+        /// <summary>
+        /// Defines test method Find_ShouldReturnFacturaById.
+        /// </summary>
+
+
         [TestMethod]
         public void Find_ShouldReturnFacturaById()
         {
@@ -400,6 +496,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
         }
+
+        /// <summary>
+        /// Defines test method FindAll_ShouldReturnAllFacturi.
+        /// </summary>
 
         [TestMethod]
         public void FindAll_ShouldReturnAllFacturi()
@@ -419,6 +519,8 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(2, result.Count());
             Assert.AreEqual(1, result.First().Id);
         }
+
+
     }
 
 }

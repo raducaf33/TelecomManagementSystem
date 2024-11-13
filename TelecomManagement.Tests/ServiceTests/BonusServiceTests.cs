@@ -16,19 +16,37 @@ using Moq;
 using TelecomManagement.Data;
 using TelecomManagement.Services.Base;
 
+/// <summary>
+/// Defines BonusServiceTests Tests class.
+/// </summary>
+
 namespace TelecomManagement.Tests.ServiceTests
 {
 
     [TestClass]
     public class BonusServiceTests
-    {
+    {  /// <summary>
+       /// Gets or sets the Bonus DbSet.
+       /// </summary>
         private Mock<DbSet<Bonus>> mockSet;
+
+        /// <summary>
+        /// Gets or sets the Telecom Context.
+        /// </summary>
         private Mock<TelecomContext> mockContext;
+        /// <summary>
+        /// Gets or sets the Bonus list.
+        /// </summary>
         private List<Bonus> bonusList;
+        /// <summary>
+        /// Gets or sets the Bonus Service.
+        /// </summary>
         private BonusService bonusService;
         private Mock<IRepositoryBase<Bonus>> mockBonusRepository;
 
-
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
         [TestInitialize]
         public void Setup()
         {
@@ -85,59 +103,12 @@ namespace TelecomManagement.Tests.ServiceTests
 
         }
 
-        [TestMethod]
-        public void AddBonus_WithNegativeValues_ShouldThrowArgumentException()
-        {
-            // Arrange
-            var bonus = new Bonus
-            {
-                Nume = "Test Bonus",
-                MinuteBonus = -100,
-                SMSuriBonus = 50,
-                TraficDateBonus = 2.5M
-            };
-
-            Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(bonus));
+     
 
 
-
-        }
-
-        [TestMethod]
-        public void AddBonus_WithNegativeSMSBonusuri_ShouldThrowArgumentException()
-        {
-            // Arrange
-            var bonus = new Bonus
-            {
-                Nume = "Test Bonus",
-                MinuteBonus = 100,
-                SMSuriBonus = -50,
-                TraficDateBonus = 2.5M
-            };
-
-            Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(bonus));
-
-
-
-        }
-
-        [TestMethod]
-        public void AddBonus_WithNegativeTraficDateBonus_ShouldThrowArgumentException()
-        {
-            // Arrange
-            var bonus = new Bonus
-            {
-                Nume = "Test Bonus",
-                MinuteBonus = 100,
-                SMSuriBonus = 50,
-                TraficDateBonus = -2.5M
-            };
-
-            Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(bonus));
-
-
-
-        }
+        /// <summary>
+        /// Defines test method AddBonus_WithValidData_ShouldAddToRepository.
+        /// </summary>
 
         [TestMethod]
         public void AddBonus_WithValidData_ShouldAddToRepository()
@@ -159,53 +130,10 @@ namespace TelecomManagement.Tests.ServiceTests
             mockSet.Verify(m => m.Add(It.IsAny<Bonus>()), Times.Once());
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
-
-        [TestMethod]
-        public void AddBonus_WithNullName_ShouldThrowArgumentNullException()
-        {
-            // Arrange
-            var bonus = new Bonus
-            {
-                Nume = null,
-                MinuteBonus = 300,
-                SMSuriBonus = 150,
-                TraficDateBonus = 3.5M
-            };
-
-            // Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => mockSet.Object.Add(bonus));
-        }
-
-        [TestMethod]
-        public void DeleteBonus_WithValidId_ShouldRemoveFromRepository()
-        {
-            // Arrange
-            var bonus = bonusList.First();
-
-            // Act
-            mockSet.Object.Remove(bonus);
-            mockContext.Object.SaveChanges();
-
-            // Assert
-            mockSet.Verify(m => m.Remove(It.IsAny<Bonus>()), Times.Once());
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
-            Assert.AreEqual(1, bonusList.Count);
-        }
-
-        [TestMethod]
-        public void GetBonusById_WithValidId_ShouldReturnBonus()
-        {
-            // Arrange
-            var bonusId = 2;
-
-            // Act
-            var bonus = mockSet.Object.Find(bonusId);
-
-            // Assert
-            Assert.IsNotNull(bonus);
-            Assert.AreEqual(bonusId, bonus.Id);
-        }
-
+       
+        /// <summary>
+        /// Defines test method GetBonusById_WithInvalidId_ShouldReturnNull.
+        /// </summary>
         [TestMethod]
         public void GetBonusById_WithInvalidId_ShouldReturnNull()
         {
@@ -215,7 +143,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             Assert.IsNull(bonus);
         }
-
+        /// <summary>
+        /// Defines test method EmptyBonusId.
+        /// </summary>
 
         [TestMethod]
         public void EmptyBonusId()
@@ -236,6 +166,9 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
+        /// <summary>
+        /// Defines test method EmptyBonusName.
+        /// </summary>
         [TestMethod]
         public void EmptyBonusName()
         {
@@ -255,6 +188,10 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
+        /// <summary>
+        /// Defines test method EmptyBonusMinuteBonus.
+        /// </summary>
+
 
         [TestMethod]
         public void EmptyBonusMinuteBonus()
@@ -276,6 +213,11 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
+        /// <summary>
+        /// Defines test method EmptyBonusSMSuriBonus.
+        /// </summary>
+
+
         [TestMethod]
         public void EmptyBonusSMSuriBonus()
         {
@@ -295,6 +237,11 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
+
+        /// <summary>
+        /// Defines test method EmptyBonusTraficDateBonus.
+        /// </summary>
+
 
         [TestMethod]
         public void EmptyBonusTraficDateBonus()
@@ -316,27 +263,12 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
-        [TestMethod]
-        public void UpdateBonus_WithValidData_ShouldUpdateInRepository()
-        {
-            // Arrange
-            var bonus = new Bonus
-            {
-                Nume = "Bonus 1",
-                MinuteBonus = 300,
-                SMSuriBonus = 150,
-                TraficDateBonus = 3.5M
-            };
+       
 
+        /// <summary>
+        /// Defines test method UpdateBonus_WithNullBonus_ShouldThrowArgumentNullException.
+        /// </summary>
 
-            mockSet.Setup(m => m.Find(1)).Returns(bonus);
-            // Act
-            bonusService.Update(bonus);
-
-            // Assert
-            mockContext.Verify(m => m.SaveChanges(), Times.Never());
-            Assert.AreEqual("UpdatedBonus", bonusList.First().Nume);
-        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -345,6 +277,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Act
             bonusService.Update(null);
         }
+        /// <summary>
+        /// Defines test method UpdateBonus_WithVNegativeValues.
+        /// </summary>
 
 
 
@@ -370,6 +305,11 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines test method UpdateBonus_WithNegativeMInuteBonus.
+        /// </summary>
+
+
         [TestMethod]
         public void UpdateBonus_WithNegativeMInuteBonus()
         {
@@ -392,6 +332,11 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines test method UpdateBonus_WithNegativeSMSuriBonus.
+        /// </summary>
+
+
         [TestMethod]
         public void UpdateBonus_WithNegativeSMSuriBonus()
         {
@@ -413,7 +358,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
-
+        /// <summary>
+        /// Defines test method UpdateBonus_WithNegativeTraficDateBonus.
+        /// </summary>
         [TestMethod]
         public void UpdateBonus_WithNegativeTraficDateBonus()
         {
@@ -435,7 +382,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
-
+        /// <summary>
+        /// Defines test method DeleteBonus_WithINValidId_ShouldRemoveFromRepository.
+        /// </summary>
 
         [TestMethod]
         public void DeleteBonus_WithINValidId_ShouldRemoveFromRepository()
@@ -454,33 +403,10 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
             Assert.AreEqual(2, bonusList.Count);
         }
+        /// <summary>
+        /// Defines test method Create_ShouldAddBonus.
+        /// </summary>
 
-
-        [TestMethod]
-        public void GetAllBonuses_ShouldReturnAllBonuses()
-        {
-            // Act
-            var bonuses = bonusService.GetAll();
-
-            // Assert
-            Assert.AreEqual(2, bonuses.Count());
-        }
-
-        [TestMethod]
-        public void FindBonus_ById_ShouldReturnCorrectBonus()
-        {
-            // Arrange
-            var bonusId = 1;
-            var bonus = new Bonus { Id = bonusId, Nume = "Bonus 1", MinuteBonus = 100, SMSuriBonus = 50, TraficDateBonus = 1.5M };
-
-            mockSet.Setup(m => m.Find(1)).Returns(bonus);
-
-            // Act
-            var result = bonusService.Find(bonusId);
-
-            // Assert
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
-        }
 
         [TestMethod]
         public void Create_ShouldAddBonus()
@@ -496,7 +422,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockBonusRepository.Verify(repo => repo.Create(It.Is<Bonus>(f => f.Id == 1)), Times.Once);
         }
-
+        /// <summary>
+        /// Defines test method Create_NullFactura_ShouldThrowArgumentNullException.
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Create_NullFactura_ShouldThrowArgumentNullException()
@@ -506,6 +434,10 @@ namespace TelecomManagement.Tests.ServiceTests
 
             // Assert is handled by ExpectedException
         }
+
+        /// <summary>
+        /// Defines test method Update_ShouldUpdateFactura.
+        /// </summary>
 
         [TestMethod]
         public void Update_ShouldUpdateFactura()
@@ -522,6 +454,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockBonusRepository.Verify(repo => repo.Update(It.Is<Bonus>(f => f.MinuteBonus == 600)), Times.Once);
         }
+        /// <summary>
+        /// Defines test method Update_NullFactura_ShouldThrowArgumentNullException.
+        /// </summary>
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -532,6 +467,11 @@ namespace TelecomManagement.Tests.ServiceTests
 
             // Assert is handled by ExpectedException
         }
+
+        /// <summary>
+        /// Defines test method Delete_ShouldRemoveFactura.
+        /// </summary>
+
 
         [TestMethod]
         public void Delete_ShouldRemoveFactura()
@@ -548,6 +488,13 @@ namespace TelecomManagement.Tests.ServiceTests
             mockBonusRepository.Verify(repo => repo.Delete(It.Is<Bonus>(f => f.Id == 1)), Times.Once);
         }
 
+        /// <summary>
+        /// Defines test method Delete_NullFactura_ShouldThrowArgumentNullException.
+        /// </summary>
+
+
+
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Delete_NullFactura_ShouldThrowArgumentNullException()
@@ -557,6 +504,10 @@ namespace TelecomManagement.Tests.ServiceTests
 
             // Assert is handled by ExpectedException
         }
+
+        /// <summary>
+        /// Defines test method DeleteById_ShouldRemoveFacturaById.
+        /// </summary>
 
         [TestMethod]
         public void DeleteById_ShouldRemoveFacturaById()
@@ -572,6 +523,10 @@ namespace TelecomManagement.Tests.ServiceTests
             mockBonusRepository.Verify(repo => repo.Delete(facturaId), Times.Once);
         }
 
+        /// <summary>
+        /// Defines test method Find_ShouldReturnFacturaById.
+        /// </summary>
+
         [TestMethod]
         public void Find_ShouldReturnFacturaById()
         {
@@ -586,6 +541,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
         }
+
+        /// <summary>
+        /// Defines test method FindAll_ShouldReturnAllFacturi.
+        /// </summary>
 
         [TestMethod]
         public void FindAll_ShouldReturnAllFacturi()

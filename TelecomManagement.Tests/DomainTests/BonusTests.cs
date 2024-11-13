@@ -11,13 +11,20 @@ using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Domain;
 
+/// <summary>
+/// Defines test class BonusTests.
+/// </summary>
+
 namespace TelecomManagement.Tests.DomainTests
 {
   
         [TestClass]
         public class BonusTests
         {
-            [TestMethod]
+        /// <summary>
+        /// Defines the test method Bonus_Nume_ShouldNotBeNull.
+        /// </summary>
+        [TestMethod]
             public void Bonus_Nume_ShouldNotBeNull()
             {
                 // Arrange
@@ -30,7 +37,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsNull(bonus.Nume);
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines the test method Bonus_MinuteBonus_ShouldBePositive.
+        /// </summary>
+
+        [TestMethod]
             public void Bonus_MinuteBonus_ShouldBePositive()
             {
                 // Arrange
@@ -43,7 +54,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsTrue(result, "MinuteBonus ar trebui să fie pozitiv.");
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines the test method Bonus_SMSuriBonus_ShouldBePositive.
+        /// </summary>
+
+        [TestMethod]
             public void Bonus_SMSuriBonus_ShouldBePositive()
             {
                 // Arrange
@@ -56,7 +71,12 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsTrue(result, "SMSuriBonus ar trebui să fie pozitiv.");
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines the test method Bonus_TraficDateBonus_ShouldBePositive.
+        /// </summary>
+
+
+        [TestMethod]
             public void Bonus_TraficDateBonus_ShouldBePositive()
             {
                 // Arrange

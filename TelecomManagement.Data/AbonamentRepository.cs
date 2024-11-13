@@ -11,13 +11,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Data;
-using TelecomManagement.Data.Interfaces;
+
 
 namespace TelecomManagement.Data
 {
+    /// <summary>
+    /// AbonamentRepository class.
+    /// </summary>
+    
     public class AbonamentRepository : RepositoryBase<Abonament>
     {
- 
+        /// <summary>
+        /// Initializes a new instance of the AbonamentRepository class.
+        /// </summary>
+        
         public AbonamentRepository(TelecomContext context) : base(context)
         {
         }

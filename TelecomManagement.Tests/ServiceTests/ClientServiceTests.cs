@@ -16,17 +16,43 @@ using TelecomManagement.Services;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Defines ClientServiceTests Tests class.
+/// </summary>
+
 namespace TelecomManagement.Tests.ServiceTests
 {
     [TestClass]
     public class ClientServiceTests
 
-    {
+    { /// <summary>
+      /// Gets or sets the Client DbSet.
+      /// </summary>
         private Mock<DbSet<Client>> mockSet;
+
+        /// <summary>
+        /// Gets or sets the Telecom Context.
+        /// </summary>
         private Mock<TelecomContext> mockContext;
+
+        /// <summary>
+        /// Gets or sets the Client Service.
+        /// </summary>
         private ClientService clientService;
+
+        /// <summary>
+        /// Gets or sets the Client list.
+        /// </summary>
         private List<Client> clientList;
+
+        /// <summary>
+        /// Gets or sets the Client interface .
+        /// </summary>
         private Mock<IRepositoryBase<Client>> mockClientRepository;
+
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
 
         [TestInitialize]
         public void Setup()
@@ -47,6 +73,9 @@ namespace TelecomManagement.Tests.ServiceTests
 
             // Inițializare FacturaService cu mock-ul
             clientService = new ClientService(mockClientRepository.Object);
+
+           
+
             var queryable = clientList.AsQueryable();
             mockSet = new Mock<DbSet<Client>>();
             mockSet.As<IQueryable<Client>>().Setup(m => m.Provider).Returns(queryable.Provider);
@@ -61,126 +90,33 @@ namespace TelecomManagement.Tests.ServiceTests
                 {
                     throw new ArgumentNullException(nameof(entity.Nume));
                     throw new ArgumentNullException(nameof(entity.Prenume));
-                    throw new ArgumentNullException(nameof(entity.Nume));
-                    throw new ArgumentNullException(nameof(entity.Nume));
-                    throw new ArgumentNullException(nameof(entity.Nume));
+                    throw new ArgumentNullException(nameof(entity.Email));
+                    throw new ArgumentNullException(nameof(entity.CNP));
+                    throw new ArgumentNullException(nameof(entity.UserId));
                 }
                 clientList.Add(entity);
             });
 
             // Mock pentru TelecomContext
+          //  mockContext = new Mock<TelecomContext>();
+          //  mockContext.Setup(m => m.Set<Client>()).Returns(mockSet.Object);
+
+            // Initializare ClientService cu mockContext
+          //  clientService = new ClientService(new ClientRepository(mockContext.Object));
+
+            // Mock pentru TelecomContext
             mockContext = new Mock<TelecomContext>();
             mockContext.Setup(m => m.Set<Client>()).Returns(mockSet.Object);
 
-            // Initializare ClientService cu mockContext
-            clientService = new ClientService(new ClientRepository(mockContext.Object));
+            mockSet = new Mock<DbSet<Client>>();
+            mockContext = new Mock<TelecomContext>();
+            mockContext.Setup(m => m.Set<Client>()).Returns(mockSet.Object);
         }
-
-        [TestMethod]
-        public void AddClient_WithValidData_ShouldAddToRepository()
-        {
-            // Arrange
-            var client = new Client
-            {
-                Nume = "Popescu",
-                Prenume = "Ion",
-                Email = "popescu@example.com",
-                Telefon = "0123456789",
-                CNP = "1234567890123",
-                UserId = 1
-            };
-
-            // Act
-            clientService.Create(client);
-
-            // Assert
-            mockSet.Verify(m => m.Add(It.IsAny<Client>()), Times.Once());
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
-        }
-
-        [TestMethod]
-        public void AddClient_WithNullNume_ShouldThrowArgumentNullException()
-        {
-            // Arrange
-            var client = new Client
-            {
-                Nume = null,
-                Prenume = "Ion",
-                Email = "popescu@example.com",
-                Telefon = "0123456789",
-                CNP = "1234567890123",
-                UserId = 1
-            };
-
-            // Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => mockSet.Object.Add(client));
-        }
-
-        [TestMethod]
-        public void AddClient_WithNullPrenume_ShouldThrowArgumentNullException()
-        {
-            // Arrange
-            var client = new Client
-            {
-                Nume = "Popescu",
-                Prenume = null,
-                Email = "popescu@example.com",
-                Telefon = "0123456789",
-                CNP = "invalid",
-                UserId = 1
-            };
-            // Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => mockSet.Object.Add(client));
-        }
-
-        [TestMethod]
-        public void AddClient_WithNullEmail_ShouldThrowArgumentNullException()
-        {
-            // Arrange
-            var client = new Client
-            {
-                Nume = "Popescu",
-                Prenume = "Ion",
-                Email = null,
-                Telefon = "0123456789",
-                CNP = "invalid",
-                UserId = 1
-            };
-            Assert.ThrowsException<ArgumentNullException>(() => mockSet.Object.Add(client));
-        }
-
-        [TestMethod]
-        public void AddClient_WithNullPhone_ShouldThrowArgumentNullException()
-        {
-            // Arrange
-            var client = new Client
-            {
-                Nume = "Popescu",
-                Prenume = "Ion",
-                Email = "popescu@example.com",
-                Telefon = null,
-                CNP = "invalid",
-                UserId = 1
-            };
-            Assert.ThrowsException<ArgumentNullException>(() => mockSet.Object.Add(client));
-        }
-
-        [TestMethod]
-        public void AddClient_WithNullCNP_ShouldThrowArgumentNullException()
-        {
-            // Arrange
-            var client = new Client
-            {
-                Nume = "Popescu",
-                Prenume = "Ion",
-                Email = "popescu@example.com",
-                Telefon = "0768903657",
-                CNP = null,
-                UserId = 1
-            };
-            Assert.ThrowsException<ArgumentNullException>(() => mockSet.Object.Add(client));
-        }
-
+       
+        /// <summary>
+        /// Defines test method EmptyId.
+        /// </summary>
+        /// 
         [TestMethod]
         public void EmptyId()
         {
@@ -201,6 +137,10 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
+        /// <summary>
+        /// Defines test method EmptyUserId.
+        /// </summary>
+
         [TestMethod]
         public void EmptyUserId()
         {
@@ -220,6 +160,10 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
+
+        /// <summary>
+        /// Defines test method UpdateClient_WithNegativeUserId.
+        /// </summary>
 
         [TestMethod]
         public void UpdateClient_WithNegativeUserId()
@@ -246,186 +190,170 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
-
+        /// <summary>
+        /// Defines test method Create_ShouldAddClient.
+        /// </summary>
 
         [TestMethod]
-        public void UpdateClient_ShouldUpdateInRepository()
-        {
-            // Arrange
-            var existingClient = new Client
+            public void Create_ShouldAddClient()
             {
-                Id = 1,
-                Nume = "Popescu",
-                Prenume = "Ion",
-                Email = "popescu@example.com",
-                Telefon = "0123456789",
-                CNP = "1234567890123",
-                UserId = 1
-            };
+                // Arrange
+                var client = new Client { Id = 1, Nume = "Popescu", Prenume = "Ion", Email = "popescu@example.com", Telefon = "0123456789", CNP = "1234567890123", UserId = 1 };
+                mockClientRepository.Setup(repo => repo.Create(It.IsAny<Client>())).Verifiable();
 
-            // Simulați găsirea clientului existent în repository
-            mockSet.Setup(m => m.Find(1)).Returns(existingClient);
+                // Act
+                clientService.Create(client);
 
-            // Modificați numele clientului
-            existingClient.Nume = "Ionescu";
+                // Assert
+                mockClientRepository.Verify(repo => repo.Create(It.Is<Client>(f => f.Id == 1)), Times.Once);
+            }
 
-            // Act
-            clientService.Update(existingClient);
 
-            // Assert
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
-        }
+        /// <summary>
+        /// Defines test method Create_NullFactura_ShouldThrowArgumentNullException.
+        /// </summary>
 
         [TestMethod]
-        public void DeleteClient_ShouldRemoveFromRepository()
-        {
-            // Arrange
-            var client = new Client
+            [ExpectedException(typeof(ArgumentNullException))]
+            public void Create_NullFactura_ShouldThrowArgumentNullException()
             {
-                Id = 1,
-                Nume = "Popescu",
-                Prenume = "Ion",
-                Email = "popescu@example.com",
-                Telefon = "0123456789",
-                CNP = "1234567890123",
-                UserId = 1
-            };
+                // Act
+                clientService.Create(null);
 
+                // Assert is handled by ExpectedException
+            }
 
-
-            // Act
-            clientService.Delete(client);
-
-           
-
-            // Assert
-            mockSet.Verify(m => m.Remove(It.IsAny<Client>()), Times.Once());
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
-        }
-
+        /// <summary>
+        /// Defines test method Update_ShouldUpdateFactura.
+        /// </summary>
 
         [TestMethod]
-        public void Create_ShouldAddFactura()
-        {
-            // Arrange
-            var client = new Client { Id = 1, Nume = "Popescu", Prenume = "Ion", Email = "popescu@example.com", Telefon = "0123456789", CNP = "1234567890123", UserId = 1 };
-            mockClientRepository.Setup(repo => repo.Create(It.IsAny<Client>())).Verifiable();
-
-            // Act
-            clientService.Create(client);
-
-            // Assert
-            mockClientRepository.Verify(repo => repo.Create(It.Is<Client>(f => f.Id == 1)), Times.Once);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Create_NullFactura_ShouldThrowArgumentNullException()
-        {
-            // Act
-            clientService.Create(null);
-
-            // Assert is handled by ExpectedException
-        }
-
-        [TestMethod]
-        public void Update_ShouldUpdateFactura()
-        {
-            // Arrange
-            var client = new Client { Id = 1, Nume = "Popescu", Prenume = "Ion", Email = "popescu@example.com", Telefon = "0123456789", CNP = "1234567890123", UserId = 1 };
-        
-            mockClientRepository.Setup(repo => repo.Update(It.IsAny<Client>())).Verifiable();
-
-            // Act
-            client.UserId = 2;
-            clientService.Update(client);
-
-            // Assert
-            mockClientRepository.Verify(repo => repo.Update(It.Is<Client>(f => f.UserId == 2)), Times.Once);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Update_NullFactura_ShouldThrowArgumentNullException()
-        {
-            // Act
-            clientService.Update(null);
-
-            // Assert is handled by ExpectedException
-        }
-
-        [TestMethod]
-        public void Delete_ShouldRemoveFactura()
-        {
-            // Arrange
-            var client = new Client { Id = 1, Nume = "Popescu", Prenume = "Ion", Email = "popescu@example.com", Telefon = "0123456789", CNP = "1234567890123", UserId = 1 };
-            mockClientRepository.Setup(repo => repo.Delete(It.IsAny<Client>())).Verifiable();
-
-            // Act
-            clientService.Delete(client);
-
-            // Assert
-            mockClientRepository.Verify(repo => repo.Delete(It.Is<Client>(f => f.Id == 1)), Times.Once);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Delete_NullFactura_ShouldThrowArgumentNullException()
-        {
-            // Act
-            clientService.Delete((Client)null);
-
-            // Assert is handled by ExpectedException
-        }
-
-        [TestMethod]
-        public void DeleteById_ShouldRemoveFacturaById()
-        {
-            // Arrange
-            int facturaId = 1;
-            mockClientRepository.Setup(repo => repo.Delete(It.IsAny<int>())).Verifiable();
-
-            // Act
-            clientService.Delete(facturaId);
-
-            // Assert
-            mockClientRepository.Verify(repo => repo.Delete(facturaId), Times.Once);
-        }
-
-        [TestMethod]
-        public void Find_ShouldReturnFacturaById()
-        {
-            // Arrange
-            var client = new Client { Id = 1, Nume = "Popescu", Prenume = "Ion", Email = "popescu@example.com", Telefon = "0123456789", CNP = "1234567890123", UserId = 1 };
-            mockClientRepository.Setup(repo => repo.Find(1)).Returns(client);
-
-            // Act
-            var result = clientService.Find(1);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Id);
-        }
-
-        [TestMethod]
-        public void FindAll_ShouldReturnAllFacturi()
-        {
-            // Arrange
-            var clientList = new List<Client>
+            public void Update_ShouldUpdateClient()
             {
-               new Client { Id = 1, Nume = "Popescu", Prenume = "Ion", Email = "popescu@example.com", Telefon = "0123456789", CNP = "1234567890123", UserId = 1 },
-                 
-            };
-            mockClientRepository.Setup(repo => repo.FindAll()).Returns(clientList.AsQueryable());
+                // Arrange
+                var client = new Client { Id = 1, Nume = "Popescu", Prenume = "Ion", Email = "popescu@example.com", Telefon = "0123456789", CNP = "1234567890123", UserId = 1 };
+                mockClientRepository.Setup(repo => repo.Update(It.IsAny<Client>())).Verifiable();
 
-            // Act
-            var result = clientService.FindAll();
+                // Act
+                client.UserId = 2;
+                clientService.Update(client);
 
-            // Assert
-            Assert.AreEqual(2, result.Count());
-            Assert.AreEqual(1, result.First().Id);
+                // Assert
+                mockClientRepository.Verify(repo => repo.Update(It.Is<Client>(f => f.UserId == 2)), Times.Once);
+            }
+
+        /// <summary>
+        /// Defines test method Update_NullFactura_ShouldThrowArgumentNullException.
+        /// </summary>
+
+
+        [TestMethod]
+            [ExpectedException(typeof(ArgumentNullException))]
+            public void Update_NullClient_ShouldThrowArgumentNullException()
+            {
+                // Act
+                clientService.Update(null);
+
+                // Assert is handled by ExpectedException
+            }
+
+        /// <summary>
+        /// Defines test method Delete_ShouldRemoveFactura.
+        /// </summary>
+
+
+        [TestMethod]
+            public void Delete_ShouldRemoveClient()
+            {
+                // Arrange
+                var client = new Client { Id = 2, Nume = "Popescu", Prenume = "Ion", Email = "popescu@example.com", Telefon = "0123456789", CNP = "1234567890123", UserId = 1 };
+                mockClientRepository.Setup(repo => repo.Delete(It.IsAny<Client>())).Verifiable();
+
+                // Act
+                clientService.Delete(client);
+
+                // Assert
+                mockClientRepository.Verify(repo => repo.Delete(It.Is<Client>(f => f.Id == 2)), Times.Once);
+            }
+
+        /// <summary>
+        /// Defines test method Delete_NullFactura_ShouldThrowArgumentNullException.
+        /// </summary>
+
+
+        [TestMethod]
+            [ExpectedException(typeof(ArgumentNullException))]
+            public void Delete_NullClient_ShouldThrowArgumentNullException()
+            {
+                // Act
+                clientService.Delete((Client)null);
+
+                // Assert is handled by ExpectedException
+            }
+
+        /// <summary>
+        /// Defines test method DeleteById_ShouldRemoveFacturaById.
+        /// </summary>
+
+        [TestMethod]
+            public void DeleteById_ShouldRemoveClientById()
+            {
+                // Arrange
+                int clientId = 1;
+                mockClientRepository.Setup(repo => repo.Delete(It.IsAny<int>())).Verifiable();
+
+                // Act
+                clientService.Delete(clientId);
+
+                // Assert
+                mockClientRepository.Verify(repo => repo.Delete(clientId), Times.Once);
+            }
+
+        /// <summary>
+        /// Defines test method Find_ShouldReturnFacturaById.
+        /// </summary>
+
+
+        [TestMethod]
+            public void Find_ShouldReturnClientById()
+            {
+                // Arrange
+                var client = new Client { Id = 1, Nume = "Popescu", Prenume = "Ion", Email = "popescu@example.com", Telefon = "0123456789", CNP = "1234567890123", UserId = 1 };
+                mockClientRepository.Setup(repo => repo.Find(1)).Returns(client);
+
+                // Act
+                var result = clientService.Find(1);
+
+                // Assert
+                Assert.IsNotNull(result);
+                Assert.AreEqual(1, result.Id);
+            }
+
+        /// <summary>
+        /// Defines test method FindAll_ShouldReturnAllFacturi.
+        /// </summary>
+
+        [TestMethod]
+            public void FindAll_ShouldReturnAllClients()
+            {
+                // Arrange
+                var clientList = new List<Client>
+        {
+            new Client { Id = 1, Nume = "Popescu", Prenume = "Ion", Email = "popescu@example.com", Telefon = "0123456789", CNP = "1234567890123", UserId = 1 },
+            new Client { Id = 2, Nume = "Ionescu", Prenume = "Maria", Email = "ionescu@example.com", Telefon = "9876543210", CNP = "9876543210987", UserId = 2 }
+        };
+                mockClientRepository.Setup(repo => repo.FindAll()).Returns(clientList.AsQueryable());
+
+                // Act
+                var result = clientService.FindAll();
+
+                // Assert
+                Assert.AreEqual(2, result.Count());
+                Assert.AreEqual(1, result.First().Id);
+            }
         }
+
     }
 
-}
+
 

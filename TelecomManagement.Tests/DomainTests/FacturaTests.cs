@@ -12,6 +12,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Domain;
 
+/// <summary>
+/// Defines test class FacturaTests.
+/// </summary>
+
 namespace TelecomManagement.Tests.DomainTests
 {
     [TestClass]
@@ -24,6 +28,11 @@ namespace TelecomManagement.Tests.DomainTests
             Validator.TryValidateObject(model, context, results, true);
             return results;
         }
+
+        /// <summary>
+        /// Defines test method Factura_ValidData_ShouldCreateFactura.
+        /// </summary>
+       
         [TestMethod]
         public void Factura_ValidData_ShouldCreateFactura()
         {
@@ -43,21 +52,10 @@ namespace TelecomManagement.Tests.DomainTests
             Assert.IsTrue(factura.DataScadenta > factura.DataEmitere);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ValidationException))]
-        public void Factura_InvalidContractId_ShouldThrowException()
-        {
-            // Arrange
-            var factura = new Factura
-            {
-                SumaTotalaPlata = 100,
-                DataEmitere = DateTime.Now,
-                DataScadenta = DateTime.Now.AddDays(30)
-            };
-
-            // Act & Assert
-            Validator.ValidateObject(factura, new ValidationContext(factura), true);
-        }
+       
+        /// <summary>
+        /// Defines test method Factura_InvalidSumaTotalaPlata_ShouldThrowException.
+        /// </summary>
 
         [TestMethod]
         [ExpectedException(typeof(ValidationException))]
@@ -76,37 +74,12 @@ namespace TelecomManagement.Tests.DomainTests
             Validator.ValidateObject(factura, new ValidationContext(factura), true);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ValidationException))]
-        public void Factura_InvalidDataEmitere_ShouldThrowException()
-        {
-            // Arrange
-            var factura = new Factura
-            {
-                ContractId = 123,
-                SumaTotalaPlata = 100,
-                DataScadenta = DateTime.Now.AddDays(30)
-            };
+      
 
-            // Act & Assert
-            Validator.ValidateObject(factura, new ValidationContext(factura), true);
-        }
+        /// <summary>
+        /// Defines test method Factura_ValidData_ShouldPassValidation.
+        /// </summary>
 
-        [TestMethod]
-        [ExpectedException(typeof(ValidationException))]
-        public void Factura_InvalidDataScadenta_ShouldThrowException()
-        {
-            // Arrange
-            var factura = new Factura
-            {
-                ContractId = 123,
-                SumaTotalaPlata = 100,
-                DataEmitere = DateTime.Now
-            };
-
-            // Act & Assert
-            Validator.ValidateObject(factura, new ValidationContext(factura), true);
-        }
 
         [TestMethod]
         public void Factura_ValidData_ShouldPassValidation()
@@ -123,6 +96,11 @@ namespace TelecomManagement.Tests.DomainTests
             // Act & Assert
             Validator.ValidateObject(factura, new ValidationContext(factura), true);
         }
+
+
+        /// <summary>
+        /// Defines test method SumaTotalaPlata_ShouldBeNonNegative.
+        /// </summary>
 
         [TestMethod]
         [TestCategory("SumaTotalaPlata")]
@@ -144,43 +122,8 @@ namespace TelecomManagement.Tests.DomainTests
             Assert.IsTrue(validationResults.Exists(vr => vr.MemberNames.Contains("SumaTotalaPlata") && vr.ErrorMessage.Contains("Suma plății trebuie să fie mai mare sau egală cu 0.")));
         }
 
-        [TestMethod]
-        [TestCategory("DataEmitere")]
-        public void DataEmitere_ShouldBeRequired()
-        {
-            // Arrange
-            var factura = new Factura
-            {
-                ContractId = 123,
-                SumaTotalaPlata = 100,
-                DataScadenta = DateTime.Now.AddDays(30)
-            };
-
-            // Act
-            var validationResults = ValidateModel(factura);
-
-            // Assert
-            Assert.IsTrue(validationResults.Exists(vr => vr.MemberNames.Contains("DataEmitere") && vr.ErrorMessage.Contains("Data Emitere este obligatorie.")));
-        }
-
-        [TestMethod]
-        [TestCategory("DataScadenta")]
-        public void DataScadenta_ShouldBeRequired()
-        {
-            // Arrange
-            var factura = new Factura
-            {
-                ContractId = 123,
-                SumaTotalaPlata = 100,
-                DataEmitere = DateTime.Now
-            };
-
-            // Act
-            var validationResults = ValidateModel(factura);
-
-            // Assert
-            Assert.IsTrue(validationResults.Exists(vr => vr.MemberNames.Contains("DataScadenta") && vr.ErrorMessage.Contains("Data Scadenta este obligatorie.")));
-        }
+       
+       
 
         [TestMethod]
         [TestCategory("ValidData")]

@@ -10,12 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Domain;
 
+/// <summary>
+/// Defines test class ContractBonusTests.
+/// </summary>
+
 namespace TelecomManagement.Tests.DomainTests
 {
     [TestClass]
     public class ContractBonusTests
     {
-
+        /// <summary>
+        /// Defines test method ContractBonus_Id_ShouldBeSetCorrectly.
+        /// </summary>
 
         [TestMethod]
         public void ContractBonus_Id_ShouldBeSetCorrectly()
@@ -27,6 +33,10 @@ namespace TelecomManagement.Tests.DomainTests
             Assert.AreEqual(1, contractBonus.Id);
         }
 
+        /// <summary>
+        /// Defines test method ContractBonus_ContractId_ShouldBeSetCorrectly.
+        /// </summary>
+
         [TestMethod]
         public void ContractBonus_ContractId_ShouldBeSetCorrectly()
         {
@@ -36,6 +46,9 @@ namespace TelecomManagement.Tests.DomainTests
             // Act & Assert
             Assert.AreEqual(123, contractBonus.ContractId);
         }
+        /// <summary>
+        /// Defines test method ContractBonus_BonusId_ShouldBeSetCorrectly.
+        /// </summary>
 
         [TestMethod]
         public void ContractBonus_BonusId_ShouldBeSetCorrectly()
@@ -46,6 +59,10 @@ namespace TelecomManagement.Tests.DomainTests
             // Act & Assert
             Assert.AreEqual(456, contractBonus.BonusId);
         }
+
+        /// <summary>
+        /// Defines test method ContractBonus_DataIncheiere_ShouldBeSetCorrectly.
+        /// </summary>
 
         [TestMethod]
         public void ContractBonus_DataIncheiere_ShouldBeSetCorrectly()
@@ -58,6 +75,11 @@ namespace TelecomManagement.Tests.DomainTests
             Assert.AreEqual(date, contractBonus.DataIncheiere);
         }
 
+
+        /// <summary>
+        /// Defines test method ContractBonus_DataExpirare_ShouldBeSetCorrectly.
+        /// </summary>
+
         [TestMethod]
         public void ContractBonus_DataExpirare_ShouldBeSetCorrectly()
         {
@@ -68,6 +90,10 @@ namespace TelecomManagement.Tests.DomainTests
             // Act & Assert
             Assert.AreEqual(date, contractBonus.DataExpirare);
         }
+
+        /// <summary>
+        /// Defines test method ContractBonus_Contract_ShouldBeSetCorrectly.
+        /// </summary>
 
         [TestMethod]
         public void ContractBonus_Contract_ShouldBeSetCorrectly()
@@ -80,6 +106,10 @@ namespace TelecomManagement.Tests.DomainTests
             Assert.AreEqual(contract, contractBonus.Contract);
         }
 
+        /// <summary>
+        /// Defines test method ContractBonus_Bonus_ShouldBeSetCorrectly.
+        /// </summary>
+
         [TestMethod]
         public void ContractBonus_Bonus_ShouldBeSetCorrectly()
         {
@@ -90,11 +120,9 @@ namespace TelecomManagement.Tests.DomainTests
             // Act & Assert
             Assert.AreEqual(bonus, contractBonus.Bonus);
         }
-    }
-
-    [TestClass]
-    public class ContractBonusAssociationTests
-    {
+        /// <summary>
+        /// Defines test method ContractBonus_Should_Associate_With_Contract_And_Bonus.
+        /// </summary>
         [TestMethod]
         public void ContractBonus_Should_Associate_With_Contract_And_Bonus()
         {
@@ -119,6 +147,10 @@ namespace TelecomManagement.Tests.DomainTests
             Assert.AreEqual(bonus, contractBonus.Bonus);
         }
 
+        /// <summary>
+        /// Defines test method ContractBonus_Should_ThrowException_When_DataExpirare_IsBefore_DataIncheiere.
+        /// </summary>
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ContractBonus_Should_ThrowException_When_DataExpirare_IsBefore_DataIncheiere()
@@ -142,6 +174,10 @@ namespace TelecomManagement.Tests.DomainTests
             }
         }
 
+        /// <summary>
+        /// Defines test method ContractBonus_Should_Calculate_Duration_Correctly.
+        /// </summary>
+
         [TestMethod]
         public void ContractBonus_Should_Calculate_Duration_Correctly()
         {
@@ -160,7 +196,9 @@ namespace TelecomManagement.Tests.DomainTests
             // Assert
             Assert.AreEqual((dataExpirare - dataIncheiere).Days, duration);
         }
-
+        /// <summary>
+        /// Defines test method ContractBonus_Should_Associate_ContractId_Correctly.
+        /// </summary>
         [TestMethod]
         public void ContractBonus_Should_Associate_ContractId_Correctly()
         {
@@ -174,6 +212,10 @@ namespace TelecomManagement.Tests.DomainTests
             // Assert
             Assert.AreEqual(contract.Id, contractBonus.ContractId);
         }
+
+        /// <summary>
+        /// Defines test method ContractBonus_Should_Associate_BonusId_Correctly.
+        /// </summary>
 
         [TestMethod]
         public void ContractBonus_Should_Associate_BonusId_Correctly()

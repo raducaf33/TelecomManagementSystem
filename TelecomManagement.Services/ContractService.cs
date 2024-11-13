@@ -5,30 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Domain;
 using TelecomManagement.Data;
-using TelecomManagement.Data.Interfaces;
 using TelecomManagement.Services.Base;
 
 namespace TelecomManagement.Services
 {
+
+    /// <summary>
+    /// ContractService Class which implements ServiceBase Class.
+    /// </summary>
     public class ContractService : ServiceBase<Contract>
     {
 
         private readonly ContractRepository _contractRepository;
         /// <summary>
-        /// Initializes a new instance of the <see cref="StockService"/> class.
+        /// Initializes a new instance of the ContractService class
         /// </summary>
-        /// <param name="stockRepository">The stock repository.</param>
         public ContractService(ContractRepository contractRepository) :
             base(contractRepository)
         {
             _contractRepository = contractRepository;
         }
-        public bool HasBonuses(int contractId)
-        {
-            // Verificăm dacă există bonusuri asociate contractului
-            return _contractRepository.GetAll().Any(cb => cb.Id == contractId);
-        }
 
+        /// <summary>
+        /// Creates a bool function to check if the contract is expired
+        /// </summary>
         public bool EsteContractExpirat(DateTime dataIncheiere)
         {
             var dataExpirare = dataIncheiere.AddMonths(12);

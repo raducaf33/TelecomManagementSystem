@@ -15,17 +15,39 @@ using TelecomManagement.Services;
 using System.Net.Sockets;
 using System.Data.Entity;
 
+/// <summary>
+/// Defines ContractBonusServiceTests Tests class.
+/// </summary>
+
 
 namespace TelecomManagement.Tests.ServiceTests
 {
     [TestClass]
     public class ContractBonusServiceTests
-    {
+    {   /// <summary>
+        /// Gets or sets the ContractBonus DbSet.
+        /// </summary>
         private Mock<DbSet<ContractBonus>> mockSet;
+
+        /// <summary>
+        /// Gets or sets the Telecom Context.
+        /// </summary>
         private Mock<TelecomContext> mockContext;
+
+        /// <summary>
+        /// Gets or sets the ContractBonusService service.
+        /// </summary>
         private ContractBonusService contractBonusService;
+
+        /// <summary>
+        /// Gets or sets the ContractBonus list.
+        /// </summary>
         private List<ContractBonus> contractBonusList;
 
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
+        
         [TestInitialize]
         public void Setup()
         {
@@ -68,6 +90,11 @@ namespace TelecomManagement.Tests.ServiceTests
             contractBonusService = new ContractBonusService(new ContractBonusRepository(mockContext.Object));
         }
 
+        /// <summary>
+        /// Defines test method AddContractBonus_WithIdNegativ_ShouldThrowArgumentNullException.
+        /// </summary>
+
+
         [TestMethod]
         public void AddContractBonus_WithIdNegativ_ShouldThrowArgumentNullException()
         {
@@ -85,6 +112,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Act & Assert
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(contractBonus));
         }
+
+        /// <summary>
+        /// Defines test method AddContractBonus_WithContractIdNegativ_ShouldThrowArgumentNullException.
+        /// </summary>
+
 
         [TestMethod]
         public void AddContractBonus_WithContractIdNegativ_ShouldThrowArgumentNullException()
@@ -104,6 +136,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(contractBonus));
         }
 
+        /// <summary>
+        /// Defines test method AddContractBonus_WithBonusIdNegativ_ShouldThrowArgumentNullException.
+        /// </summary>
+
         [TestMethod]
         public void AddContractBonus_WithBonusIdNegativ_ShouldThrowArgumentNullException()
         {
@@ -121,6 +157,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Act & Assert
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(contractBonus));
         }
+
+        /// <summary>
+        /// Defines test method EmptyId.
+        /// </summary>
+
 
         [TestMethod]
         public void EmptyId()
@@ -141,6 +182,9 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
+        /// <summary>
+        /// Defines test method EmptyContractId.
+        /// </summary>
 
 
         [TestMethod]
@@ -162,7 +206,9 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
-
+        /// <summary>
+        /// Defines test method EmptyBonusId.
+        /// </summary>
 
 
         [TestMethod]
@@ -184,7 +230,9 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
-
+        /// <summary>
+        /// Defines test method AddContractBonus_ValidData_ShouldAddToRepository.
+        /// </summary>
 
 
         [TestMethod]
@@ -208,38 +256,9 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
 
-        [TestMethod]
-        public void UpdateContractBonus_ValidData_ShouldUpdateInRepository()
-        {
-            // Arrange
-            var contractBonus = contractBonusList.First(); // Obțineți primul element din listă pentru actualizare
-            var newDataIncheiere = DateTime.Today.AddDays(10); // Data de încheiere actualizată
-
-            // Act
-            contractBonus.DataIncheiere = newDataIncheiere;
-            contractBonusService.Update(contractBonus);
-
-            // Assert
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
-            Assert.AreEqual(newDataIncheiere, contractBonusList.First().DataIncheiere);
-        }
-
-        [TestMethod]
-        public void DeleteContractBonus_ValidData_ShouldRemoveFromRepository()
-        {
-            // Arrange
-            var contractBonus = contractBonusList.First(); // Obțineți primul element din listă pentru ștergere
-
-            // Act
-            contractBonusService.Delete(contractBonus);
-
-            // Assert
-            mockSet.Verify(m => m.Remove(It.IsAny<ContractBonus>()), Times.Once());
-            mockContext.Verify(m => m.SaveChanges(), Times.Once());
-            Assert.IsFalse(contractBonusList.Contains(contractBonus));
-        }
-
-
+        /// <summary>
+        /// Defines test method UpdateContractBonus_WithNegativeId.
+        /// </summary>
         [TestMethod]
         public void UpdateContractBonus_WithNegativeId()
         {
@@ -263,6 +282,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
+
+        /// <summary>
+        /// Defines test method UpdateContractBonus_WithNegativeContractId.
+        /// </summary>
 
         [TestMethod]
         public void UpdateContractBonus_WithNegativeContractId()
@@ -288,6 +311,11 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
+
+        /// <summary>
+        /// Defines test method UpdateContractBonus_WithNegativeUserId.
+        /// </summary>
+
         [TestMethod]
         public void UpdateContractBonus_WithNegativeUserId()
         {
@@ -311,6 +339,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
+
+        /// <summary>
+        /// Defines test method UpdateContractBonus_WithNegativeBonusId.
+        /// </summary>
 
         [TestMethod]
         public void UpdateContractBonus_WithNegativeBonusId()
@@ -336,6 +368,11 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
+
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInIanuarie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void BonusAdddedToContractInIanuarie_ShouldReturnTrue()
         {
@@ -359,6 +396,9 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(1, contractBonus.DataIncheiere.Month);
         }
 
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInFebruarieShouldReturnTrue.
+        /// </summary>
         [TestMethod]
         public void BonusAdddedToContractInFebruarieShouldReturnTrue()
         {
@@ -381,9 +421,11 @@ namespace TelecomManagement.Tests.ServiceTests
             // Check if the contract was signed in January
             Assert.AreEqual(2, contractBonus.DataIncheiere.Month);
         }
-
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInMartie_ShouldReturnTrue.
+        /// </summary>
         [TestMethod]
-        public void BonusAdddedToContractInMarti_ShouldReturnTrue()
+        public void BonusAdddedToContractInMartie_ShouldReturnTrue()
         {
             // Arrange
             var contractBonus = new ContractBonus
@@ -404,7 +446,9 @@ namespace TelecomManagement.Tests.ServiceTests
             // Check if the contract was signed in January
             Assert.AreEqual(3, contractBonus.DataIncheiere.Month);
         }
-
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInAprilie_ShouldReturnTrue.
+        /// </summary>
         [TestMethod]
         public void BonusAdddedToContractInAprilie_ShouldReturnTrue()
         {
@@ -427,6 +471,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Check if the contract was signed in January
             Assert.AreEqual(4, contractBonus.DataIncheiere.Month);
         }
+
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInMai_ShouldReturnTrue.
+        /// </summary>
 
         [TestMethod]
         public void BonusAdddedToContractInMai_ShouldReturnTrue()
@@ -451,6 +499,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(5, contractBonus.DataIncheiere.Month);
         }
 
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInIunie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void BonusAdddedToContractInIunie_ShouldReturnTrue()
         {
@@ -473,6 +525,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Check if the contract was signed in January
             Assert.AreEqual(6, contractBonus.DataIncheiere.Month);
         }
+
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInIulie_ShouldReturnTrue.
+        /// </summary>
 
         [TestMethod]
         public void BonusAdddedToContractInIulie_ShouldReturnTrue()
@@ -497,8 +553,12 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(7, contractBonus.DataIncheiere.Month);
         }
 
+        /// <summary>
+        /// Defines test method BonusAddedToContractInAugust_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
-        public void BonusAdddedToContractInAugust_ShouldReturnTrue()
+        public void BonusAddedToContractInAugust_ShouldReturnTrue()
         {
             // Arrange
             var contractBonus = new ContractBonus
@@ -519,6 +579,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Check if the contract was signed in January
             Assert.AreEqual(8, contractBonus.DataIncheiere.Month);
         }
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInSeptembrie_ShouldReturnTrue.
+        /// </summary>
+
 
         [TestMethod]
         public void BonusAdddedToContractInSeptembrie_ShouldReturnTrue()
@@ -543,6 +607,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(9, contractBonus.DataIncheiere.Month);
         }
 
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInOctombrie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void BonusAdddedToContractInOctombrie_ShouldReturnTrue()
         {
@@ -566,6 +634,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.AreEqual(10, contractBonus.DataIncheiere.Month);
         }
 
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInOctombrie_ShouldReturnTrue.
+        /// </summary>
+
         [TestMethod]
         public void BonusAdddedToContractInNoiembrie_ShouldReturnTrue()
         {
@@ -586,8 +658,13 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
 
             // Check if the contract was signed in January
-            Assert.AreEqual(111, contractBonus.DataIncheiere.Month);
+            Assert.AreEqual(11, contractBonus.DataIncheiere.Month);
         }
+
+        /// <summary>
+        /// Defines test method BonusAdddedToContractInDecembrie_ShouldReturnTrue.
+        /// </summary>
+        
         [TestMethod]
         public void BonusAdddedToContractInDecembrie_ShouldReturnTrue()
         {

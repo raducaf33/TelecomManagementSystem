@@ -14,14 +14,18 @@ using TelecomManagement.Services.Base;
 
 namespace TelecomManagement.Services
 {
+
+
+    /// <summary>
+    /// UserService Class which implements ServiceBase Class.
+    /// </summary>
     public class UserService : ServiceBase<User>
     {
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StockService"/> class.
+        /// Initializes a new instance of the UserService class
         /// </summary>
-        /// <param name="stockRepository">The stock repository.</param>
         public UserService(UserRepository userRepository) :
             base(userRepository)
         {

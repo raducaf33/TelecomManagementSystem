@@ -62,7 +62,6 @@
     <Compile Include="ContractBonusService.cs" />
     <Compile Include="ContractService.cs" />
     <Compile Include="FacturaService.cs" />
-    <Compile Include="Interfaces\IBonusService.cs" />
     <Compile Include="PlataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationService.cs" />

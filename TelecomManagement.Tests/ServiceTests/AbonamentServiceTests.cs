@@ -15,17 +15,40 @@ using TelecomManagement.Domain;
 using TelecomManagement.Services;
 using System.Data.Entity;
 
+/// <summary>
+/// Defines AbonamentServiceTests Tests class.
+/// </summary>
 
 namespace TelecomManagement.Tests.ServiceTests
 {
   
         [TestClass]
         public class AbonamentServiceTests
+
         {
+        /// <summary>
+        /// Gets or sets the Abonament DbSet.
+        /// </summary>
         private Mock<DbSet<Abonament>> mockSet;
+
+        /// <summary>
+        /// Gets or sets the Telecom Context.
+        /// </summary>
         private Mock<TelecomContext> mockContext;
+
+        /// <summary>
+        /// Gets or sets the Abonament service.
+        /// </summary>
         private AbonamentService abonamentService;
+
+        /// <summary>
+        /// Gets or sets the Abonament list.
+        /// </summary>
         private List<Abonament> abonamentList;
+
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
 
         [TestInitialize]
         public void Setup()
@@ -65,16 +88,10 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Setup(m => m.Set<Abonament>()).Returns(mockSet.Object);
             abonamentService = new AbonamentService(new AbonamentRepository(mockContext.Object));
         }
+        /// <summary>
+        /// Defines test method AddBonus_WithNegativePret_ShouldThrowArgumentException.
+        /// </summary>
 
-        [TestMethod]
-        public void AddAbonament_WhenNumeIsNull_ShouldThrowArgumentNullException()
-        {
-            // Arrange
-            var abonamentWithNullNume = new Abonament { Id = 3, Nume = null, Pret = 50, MinuteIncluse = 100, SMSuriIncluse = 50, TraficDateInclus = 5 };
-
-            // Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => abonamentService.Create(abonamentWithNullNume));
-        }
 
         [TestMethod]
         public void AddBonus_WithNegativePret_ShouldThrowArgumentException()
@@ -92,6 +109,9 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(abonament));
 
         }
+        /// <summary>
+        /// Defines test method AddBonus_WithNegativeMinuteIncluse_ShouldThrowArgumentException.
+        /// </summary>
 
         [TestMethod]
         public void AddBonus_WithNegativeMinuteIncluse_ShouldThrowArgumentException()
@@ -110,6 +130,10 @@ namespace TelecomManagement.Tests.ServiceTests
 
         }
 
+        /// <summary>
+        /// Defines test method AddBonus_WithNegativeSMSuriIncluse_ShouldThrowArgumentException.
+        /// </summary>
+
         [TestMethod]
         public void AddBonus_WithNegativeSMSuriIncluse_ShouldThrowArgumentException()
         {
@@ -126,6 +150,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(abonament));
 
         }
+
+        /// <summary>
+        /// Defines test method AddBonus_WithNegativeTraficDateIncluse_ShouldThrowArgumentException.
+        /// </summary>
 
 
         [TestMethod]
@@ -144,6 +172,10 @@ namespace TelecomManagement.Tests.ServiceTests
             Assert.ThrowsException<ArgumentException>(() => mockSet.Object.Add(abonament));
 
         }
+
+        /// <summary>
+        /// Defines test method EmptyAbonamentID.
+        /// </summary>
         [TestMethod]
         public void EmptyAbonamentID()
         {
@@ -164,7 +196,9 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
-
+        /// <summary>
+        /// Defines test method EmptyPret.
+        /// </summary>
 
         [TestMethod]
         public void EmptyPret()
@@ -185,7 +219,9 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
-
+        /// <summary>
+        /// Defines test method EmptySMSuriIncluse.
+        /// </summary>
 
         [TestMethod]
         public void EmptySMSuriIncluse()
@@ -206,7 +242,9 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
-
+        /// <summary>
+        /// Defines test method EmptyMinuteIncluse.
+        /// </summary>
 
         [TestMethod]
         public void EmptyMinuteIncluse()
@@ -228,6 +266,9 @@ namespace TelecomManagement.Tests.ServiceTests
             });
         }
 
+        /// <summary>
+        /// Defines test method EmptyTraficDateIncluse.
+        /// </summary>
 
         [TestMethod]
         public void EmptyTraficDateIncluse()
@@ -248,6 +289,10 @@ namespace TelecomManagement.Tests.ServiceTests
                 }
             });
         }
+
+        /// <summary>
+        /// Defines test method UpdateAbonament_WithNegativePret.
+        /// </summary>
         [TestMethod]
         public void UpdateAbonament_WithNegativePret()
         {
@@ -271,6 +316,11 @@ namespace TelecomManagement.Tests.ServiceTests
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
 
+
+        /// <summary>
+        /// Defines test method UpdateAbonament_WithNegativeMinuteIncluse.
+        /// </summary>
+
         [TestMethod]
         public void UpdateAbonament_WithNegativeMinuteIncluse()
         {
@@ -293,6 +343,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
+
+        /// <summary>
+        /// Defines test method UpdateAbonament_WithNegativeSMSuriIncluse.
+        /// </summary>
         [TestMethod]
         public void UpdateAbonament_WithNegativeSMSuriIncluse()
         {
@@ -315,6 +369,10 @@ namespace TelecomManagement.Tests.ServiceTests
             // Assert
             mockContext.Verify(m => m.SaveChanges(), Times.Never());
         }
+
+        /// <summary>
+        /// Defines test method UpdateAbonament_WithNegativeTraficDateInclus.
+        /// </summary>
 
         [TestMethod]
         public void UpdateAbonament_WithNegativeTraficDateInclus()

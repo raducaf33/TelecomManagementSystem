@@ -11,12 +11,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Domain;
-using TelecomManagement.Data.Interfaces;
+
 using TelecomManagement.Data;
 namespace TelecomManagement.Data
 {
+    /// <summary>
+    /// ClientRepository class.
+    /// </summary>
     public class ClientRepository : RepositoryBase<Client>
     {
+        /// <summary>
+        /// Initializes a new instance of the ClientRepository class.
+        /// </summary>
 
         public ClientRepository(TelecomContext context) : base(context)
         {

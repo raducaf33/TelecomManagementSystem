@@ -14,20 +14,26 @@ using TelecomManagement.Data;
 
 namespace TelecomManagement.Services
 {
+
+
+    /// <summary>
+    /// PlataService Class which implements ServiceBase Class.
+    /// </summary>
     public class PlataService : ServiceBase<Plata>
     {
         private readonly IRepositoryBase<Plata> plataRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StockService"/> class.
+        /// Initializes a new instance of the PlataService class
         /// </summary>
-        /// <param name="stockRepository">The stock repository.</param>
         public PlataService(IRepositoryBase<Plata> plataRepository) :
             base(plataRepository)
         {
         }
 
-
+        /// <summary>
+        /// Creates a bool function to check if the Payments has been done for the contract
+        /// </summary>
 
 
         public bool EstePlataFacutaPentruContract(int contractId)

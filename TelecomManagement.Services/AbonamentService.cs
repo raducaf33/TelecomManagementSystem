@@ -9,21 +9,24 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using TelecomManagement.Data;
-using TelecomManagement.Data.Interfaces;
 using TelecomManagement.Domain;
 using TelecomManagement.Services.Base;
 
 namespace TelecomManagement.Services
 {
+
+    /// <summary>
+    /// AbonamentService Class which implements ServiceBase Class.
+    /// </summary>
+    
     public class AbonamentService : ServiceBase<Abonament>
     {
 
-        
-            /// <summary>
-            /// Initializes a new instance of the <see cref="StockService"/> class.
-            /// </summary>
-            /// <param name="stockRepository">The stock repository.</param>
-            public AbonamentService(AbonamentRepository abonamentRepository) :
+
+        /// <summary>
+        /// Initializes a new instance of the AbonamentService class
+        /// </summary>
+        public AbonamentService(AbonamentRepository abonamentRepository) :
                 base(abonamentRepository)
             {
             }

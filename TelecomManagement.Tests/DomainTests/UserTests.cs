@@ -12,14 +12,20 @@ using System.Text;
 using System.Threading.Tasks;
 using TelecomManagement.Domain;
 
+/// <summary>
+/// Defines test class UserTests.
+/// </summary>
+
 namespace TelecomManagement.Tests.DomainTests
 {
     
         [TestClass]
         public class UserTests
-        {
+    {    /// <summary>
+         /// Defines test method Username_Validation_Correct.
+         /// </summary>
 
-            [TestMethod]
+        [TestMethod]
             public void Username_Validation_Correct()
             {
                 // Arrange
@@ -33,7 +39,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsTrue(isValid);
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Password_Validation_Correct.
+        /// </summary>
+
+        [TestMethod]
             public void Password_Validation_Correct()
             {
                 // Arrange
@@ -47,7 +57,12 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsTrue(isValid);
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method LastLoggedIn_Updated_Correctly.
+        /// </summary>
+
+
+        [TestMethod]
             public void LastLoggedIn_Updated_Correctly()
             {
                 // Arrange
@@ -61,7 +76,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.AreNotEqual(initialLastLoggedIn, user.LastLoggedIn);
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Authentication_Successful_With_Valid_Credentials.
+        /// </summary>
+
+        [TestMethod]
             public void Authentication_Successful_With_Valid_Credentials()
             {
                 // Arrange
@@ -76,7 +95,11 @@ namespace TelecomManagement.Tests.DomainTests
                 Assert.IsTrue(isAuthenticated);
             }
 
-            [TestMethod]
+        /// <summary>
+        /// Defines test method Authentication_Fails_With_Invalid_Credentials.
+        /// </summary>
+
+        [TestMethod]
             public void Authentication_Fails_With_Invalid_Credentials()
             {
                 // Arrange
